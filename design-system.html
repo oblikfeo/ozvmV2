@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Styleguide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <style>
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+      margin: 20px 0 40px;
+    }
+    .swatch__color { height: 70px; border-radius: var(--radius-md) var(--radius-md) 0 0; }
+    .swatch__label {
+      background: var(--color-white);
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      box-shadow: var(--shadow-card);
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+    .swatch__label b { display: block; font-size: 12px; color: var(--color-muted); font-weight: 400; }
+    .type-row {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--color-primary-bg);
+    }
+    .type-row span.tag { width: 90px; flex-shrink: 0; font-size: 12px; color: var(--color-muted); }
+    .btn-row, .badge-row, .card-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin: 16px 0 40px; }
+    section.block { padding: 30px 0; border-bottom: 1px solid var(--color-primary-bg); }
+    .mini-card { width: 220px; background: var(--color-white); border-radius: var(--radius-md); box-shadow: var(--shadow-card); padding: 16px; }
+    .mini-card h3 { font-size: 16px; margin-bottom: 6px; }
+    .mini-card p { font-size: 13px; color: var(--color-muted); }
+  </style>
+</head>
+<body>
+  <main class="container" style="padding-top: 30px; padding-bottom: 60px;">
+    <h1>Styleguide</h1>
+
+    <section class="block">
+      <h2>Цвета</h2>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="swatch__color" style="background: var(--color-primary)"></div><div class="swatch__label">Primary<b>#264794</b></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--color-accent)"></div><div class="swatch__label">Accent<b>#C51A1A</b></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--color-banner)"></div><div class="swatch__label">Banner<b>#C3E2F1</b></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--color-primary-bg)"></div><div class="swatch__label">Primary bg<b>#ECF5FF</b></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--color-blue-1)"></div><div class="swatch__label">Blue 1<b>#1D93D2</b></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--color-blue-2)"></div><div class="swatch__label">Blue 2<b>#A9C6D8</b></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--color-blue-3)"></div><div class="swatch__label">Blue 3<b>#C8DAEA</b></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--color-page-bg)"></div><div class="swatch__label">Page bg<b>#F5F5F5</b></div></div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Типографика — Jost</h2>
+      <div class="type-row"><span class="tag">H1 / 600</span><h1 style="margin:0">Заголовок страницы</h1></div>
+      <div class="type-row"><span class="tag">H2 / 600</span><h2 style="margin:0">Заголовок секции</h2></div>
+      <div class="type-row"><span class="tag">H3 / 600</span><h3 style="margin:0">Заголовок карточки</h3></div>
+      <div class="type-row"><span class="tag">Body / 400</span><p style="margin:0">Обычный текст, 16px.</p></div>
+      <div class="type-row"><span class="tag">Small / 400</span><p style="margin:0; font-size:14px">Мелкий текст, 14px.</p></div>
+      <div class="type-row"><span class="tag">Medium / 500</span><p style="margin:0; font-weight:500">Акцентный текст, 500.</p></div>
+    </section>
+
+    <section class="block">
+      <h2>Кнопки</h2>
+      <div class="btn-row">
+        <button class="btn btn-accent">Акцентная</button>
+        <button class="btn btn-primary">Основная</button>
+        <button class="btn btn-outline">Контурная</button>
+        <button class="btn btn-ghost">Мягкая</button>
+        <button class="btn btn-accent" disabled>Недоступна</button>
+        <button class="btn btn-accent btn-sm">Маленькая</button>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Бейджи</h2>
+      <div class="badge-row">
+        <span class="badge badge-accent">Акция</span>
+        <span class="badge badge-muted">до 15.08.2026</span>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Карточка</h2>
+      <div class="card-row">
+        <div class="mini-card">
+          <h3>Пример карточки</h3>
+          <p>Скругление 10px, мягкая тень, белый фон.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

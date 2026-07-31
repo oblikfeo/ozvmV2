@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Админ-панель — Акции</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+  <!-- Экран входа -->
+  <div class="login-screen" id="login-screen" hidden>
+    <form class="login-card" id="login-form">
+      <img class="login-card__logo" src="img/miniLogo.svg" alt="ЗооВетМир" />
+      <h1 class="login-card__title">Админ-панель</h1>
+      <p class="login-card__subtitle">Управление акциями</p>
+
+      <div class="field">
+        <label for="login-user">Логин</label>
+        <input type="text" id="login-user" autocomplete="username" required />
+      </div>
+
+      <div class="field">
+        <label for="login-pass">Пароль</label>
+        <input type="password" id="login-pass" autocomplete="current-password" required />
+      </div>
+
+      <div class="login-card__error" id="login-error" hidden>Неверный логин или пароль</div>
+
+      <button type="submit" class="btn btn-accent" style="width:100%;">Войти</button>
+
+      <p class="login-card__hint">
+        Демо-доступ: <b>admin</b> / <b>zoovetmir2026</b>
+      </p>
+    </form>
+  </div>
+
+  <!-- Панель -->
+  <div id="admin-app" hidden>
+    <header class="admin-bar">
+      <div class="container admin-bar__inner">
+        <span class="admin-bar__title">Админ-панель · Акции</span>
+        <div class="admin-bar__actions">
+          <a class="btn btn-ghost btn-sm" href="index.html" target="_blank" rel="noopener">Смотреть на сайте →</a>
+          <button class="btn btn-outline-light btn-sm" id="btn-logout">Выйти</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section style="padding-top: 30px;">
+        <h1>Акции</h1>
+      </section>
+
+      <div class="admin-layout">
+        <div>
+          <div class="admin-toolbar">
+            <div class="admin-toolbar__group">
+              <button class="btn btn-outline btn-sm" id="btn-export">Экспорт JSON</button>
+              <label class="btn btn-outline btn-sm" style="cursor:pointer;">
+                Импорт JSON
+                <input type="file" id="input-import" accept="application/json" style="display:none;" />
+              </label>
+            </div>
+            <button class="btn btn-outline btn-sm" id="btn-reset">Сбросить к демо-данным</button>
+          </div>
+
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Акция</th>
+                <th>Период</th>
+                <th>Статус</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+          </table>
+        </div>
+
+        <form class="admin-form" id="promo-form">
+          <h3 id="form-title">Новая акция</h3>
+          <input type="hidden" id="field-id" />
+
+          <div class="field">
+            <label for="field-title">Название</label>
+            <input type="text" id="field-title" required placeholder="Скидка 15% на витамины" />
+          </div>
+
+          <div class="field">
+            <label>Изображение</label>
+            <div class="image-picker">
+              <div class="image-picker__preview" id="image-preview">
+                <span class="image-picker__empty">Изображение не выбрано</span>
+              </div>
+
+              <div class="image-picker__actions">
+                <label class="btn btn-ghost btn-sm" style="cursor:pointer;">
+                  Загрузить файл
+                  <input type="file" id="input-image" accept="image/*" style="display:none;" />
+                </label>
+                <button type="button" class="btn btn-outline btn-sm" id="btn-image-clear">Убрать</button>
+              </div>
+
+              <div class="image-picker__gallery-label">или выберите готовое:</div>
+              <div class="image-picker__gallery" id="image-gallery"></div>
+
+              <input type="hidden" id="field-image" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="field-short">Короткое описание (для плитки)</label>
+            <textarea id="field-short" rows="2" required></textarea>
+          </div>
+
+          <div class="field">
+            <label for="field-full">Полное описание (для страницы акции)</label>
+            <textarea id="field-full" rows="6"></textarea>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="field-start">Начало</label>
+              <input type="date" id="field-start" />
+            </div>
+            <div class="field">
+              <label for="field-end">Окончание</label>
+              <input type="date" id="field-end" />
+            </div>
+          </div>
+
+          <div class="field checkbox-field">
+            <input type="checkbox" id="field-active" checked />
+            <label for="field-active" style="margin:0;">Показывать на витрине</label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-accent">Сохранить</button>
+            <button type="button" class="btn btn-outline" id="btn-cancel">Отмена</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

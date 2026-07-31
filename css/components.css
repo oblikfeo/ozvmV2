@@ -1,0 +1,702 @@
+/* ---------- Page shell: полосный фон с фирменными лапками (без анимации) + футер прибит к низу ---------- */
+
+.page-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-page-bg);
+  background-image: url('../img/pawsBCG.svg');
+  background-size: cover;
+  background-repeat: repeat;
+}
+
+/* Плоский промежуточный блок: обычный flex-item без auto-отступов,
+   поэтому спокойно растягивается на всю ширину (в отличие от .container,
+   у которого margin:auto — если посадить .container прямо в page-shell,
+   flex по кросс-оси перестаёт растягивать элемент и сжимает его до контента).
+   Паддинг задан через clamp(), поэтому не обнуляется скачком на брейкпоинтах
+   (в этом была причина "прилипания к верху" при сужении окна). */
+.page-main {
+  padding: clamp(8px, 2vw, 10px) clamp(16px, 6vw, 60px) 0;
+}
+
+/* ---------- Site header: лого + контакты + скруглённый баннер с заголовком ---------- */
+
+.site-header {
+  /* Вся геометрия шапки выведена из этих переменных и масштабируется ПЛАВНО
+     (clamp), без скачков по breakpoint. */
+  --logo-w: clamp(64px, 8px + 15vw, 140px);
+  --logo-h: clamp(58px, 7px + 13vw, 125px);
+  --notch-w: calc(var(--logo-w) + 5px);
+  --notch-h: clamp(56px, 30px + 8vw, 88px);
+  --notch-radius: clamp(12px, 1vw + 8px, 20px);
+  /* зазор между низом логотипа и низом выреза */
+  --logo-gap: clamp(6px, 1vw, 12px);
+  /* насколько логотип торчит выше верхней кромки выреза */
+  --logo-rise: calc(var(--logo-h) - var(--notch-h) + var(--logo-gap));
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: clamp(24px, 4vw, 40px);
+}
+
+/* Логотип привязан к НИЗУ выреза, а не к верху шапки: вырез и логотип
+   масштабируются разными формулами, и фиксированный top их рассинхронизировал
+   (логотип свисал в нижнюю голубую полосу). Теперь он сидит в вырезе на любой ширине. */
+.site-header__logo {
+  position: absolute;
+  left: 0;
+  bottom: var(--logo-gap);
+  z-index: 3;
+  width: var(--logo-w);
+  height: var(--logo-h);
+}
+
+/* Строка контактов заодно резервирует место под «выступающую» часть логотипа,
+   чтобы он не упирался в верх страницы (10px — margin-top баннера). */
+.site-header__top {
+  display: flex;
+  justify-content: flex-end;
+  min-height: max(28px, calc(var(--logo-rise) - 10px + 4px));
+}
+
+.site-header__contacts {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.site-header__contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--color-ink);
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.site-header__banner {
+  position: relative;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.site-header__notch {
+  position: relative;
+  display: flex;
+  height: var(--notch-h);
+  width: 100%;
+}
+
+.site-header__notch-a {
+  position: absolute;
+  height: var(--notch-h);
+  width: var(--notch-w);
+  background: var(--color-page-bg);
+  border-bottom-right-radius: var(--notch-radius);
+  z-index: 2;
+}
+
+.site-header__notch-b {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background: var(--color-banner);
+  bottom: 0;
+  left: calc(var(--notch-w) - 20px);
+  z-index: 1;
+}
+
+.site-header__title-bar {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  border-top-left-radius: var(--notch-radius);
+  border-top-right-radius: var(--notch-radius);
+  margin: auto 0 auto var(--notch-w);
+  background: var(--color-banner);
+  padding-left: 20px;
+}
+
+.site-header__title {
+  font-size: clamp(20px, 1vw + 17px, 32px);
+  font-weight: 500;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.site-header__menu {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 25px;
+  background: var(--color-banner);
+  border-bottom-right-radius: var(--notch-radius);
+  border-bottom-left-radius: var(--notch-radius);
+  border-top-left-radius: var(--notch-radius);
+}
+
+/* Вариант шапки для страницы одной акции: ссылка «назад» + заголовок друг под другом */
+
+.site-header__title-bar--detail {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
+  padding: 8px 0 10px;
+}
+
+.site-header__title-bar--detail .site-header__title {
+  margin-left: 20px;
+}
+
+.site-header__back {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-accent);
+  text-decoration: none;
+  margin: 0 0 6px 10px;
+}
+
+.site-header__back:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .site-header__contact-label { display: none; }
+}
+
+/* ---------- Site footer (прибит к низу через margin-top:auto на уровне .page-shell) ---------- */
+
+.site-footer {
+  margin-top: auto;
+  padding: 20px clamp(16px, 6vw, 60px) 24px;
+}
+
+.site-footer__inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--color-ink);
+}
+
+.site-footer__brand {
+  border-right: 1px solid var(--color-accent);
+  padding-right: 10px;
+  font-weight: 600;
+}
+
+.site-footer__text {
+  padding-left: 0;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 24px;
+  border-radius: var(--radius-md);
+  border: none;
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-accent {
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+
+.btn-accent:disabled {
+  background: var(--color-accent-soft);
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.btn-ghost {
+  background: var(--color-primary-bg);
+  color: var(--color-primary);
+}
+
+.btn-sm {
+  height: 34px;
+  padding: 0 16px;
+  font-size: 14px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- Badge ---------- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.badge-accent {
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+
+.badge-muted {
+  background: var(--color-primary-bg);
+  color: var(--color-primary);
+}
+
+/* ---------- Promo tile grid ---------- */
+
+.promo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px 30px;
+  padding: 0 0 40px;
+}
+
+.promo-tile {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.promo-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(38, 71, 148, 0.15);
+}
+
+.promo-tile__img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  background: var(--color-primary-bg);
+}
+
+.promo-tile__body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  flex: 1;
+}
+
+.promo-tile__badge-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.promo-tile__title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.promo-tile__desc {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  flex: 1;
+}
+
+.promo-tile__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.promo-empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--color-primary-soft);
+}
+
+/* ---------- Promo detail page ---------- */
+
+.promo-detail__hero {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-bg);
+  margin-bottom: 30px;
+}
+
+.promo-detail__meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.promo-detail__text {
+  max-width: 760px;
+  margin-top: 20px;
+  white-space: pre-line;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--color-primary);
+  margin-bottom: 20px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Admin: экран входа ---------- */
+
+.login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: var(--color-page-bg);
+  background-image: url('../img/pawsBCG.svg');
+  background-size: cover;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 32px;
+  text-align: left;
+}
+
+.login-card__logo {
+  width: 72px;
+  height: 64px;
+  align-self: center;
+}
+
+.login-card__title {
+  font-size: 24px;
+  text-align: center;
+  margin: 0;
+}
+
+.login-card__subtitle {
+  font-size: 14px;
+  color: var(--color-muted);
+  text-align: center;
+  margin: -12px 0 4px;
+}
+
+.login-card__error {
+  font-size: 13px;
+  color: var(--color-accent);
+  background: rgba(197, 26, 26, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+}
+
+.login-card__hint {
+  font-size: 12px;
+  color: var(--color-muted);
+  text-align: center;
+  margin: 0;
+}
+
+/* ---------- Admin ---------- */
+
+.admin-bar {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.admin-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 60px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.admin-bar__title {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.admin-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-outline-light {
+  background: transparent;
+  color: var(--color-white);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.admin-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 30px;
+  padding: 30px 0 60px;
+  align-items: start;
+}
+
+/* ---------- Admin: выбор изображения ---------- */
+
+.image-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.image-picker__preview {
+  width: 100%;
+  height: 150px;
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--color-blue-3);
+  background: var(--color-primary-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.image-picker__preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-picker__empty {
+  font-size: 13px;
+  color: var(--color-primary-soft);
+}
+
+.image-picker__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.image-picker__gallery-label {
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+.image-picker__gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.image-picker__thumb {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  background: none;
+}
+
+.image-picker__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.image-picker__thumb.is-selected {
+  border-color: var(--color-accent);
+}
+
+.admin-table__thumb {
+  width: 56px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: var(--color-primary-bg);
+  flex-shrink: 0;
+}
+
+.admin-table__promo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-toolbar__group {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .admin-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.admin-table th,
+.admin-table td {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--color-primary-bg);
+}
+
+.admin-table th {
+  background: var(--color-primary-bg);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+  position: sticky;
+  top: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
+.field input,
+.field textarea {
+  font-family: var(--font-main);
+  font-size: 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-blue-3);
+  border-radius: var(--radius-sm);
+  color: var(--color-ink);
+  background: var(--color-white);
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.field-row {
+  display: flex;
+  gap: 10px;
+}
+
+.field-row .field {
+  flex: 1;
+}
+
+.checkbox-field {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.admin-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.pill-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--color-muted);
+}
