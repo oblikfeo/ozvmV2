@@ -398,9 +398,13 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background-color: var(--color-page-bg);
-  background-image: url('../img/pawsBCG.svg');
-  background-size: cover;
+  /* Белый фон и лапки плиткой: background-size меньше исходных 1418×894,
+     поэтому рисунок повторяется и лапок на экране заметно больше,
+     чем при cover (там картинка растягивалась на весь экран целиком). */
+  background-color: var(--color-white);
+  background-image: url('../img/pawsLogin.svg');
+  background-size: 560px auto;
+  background-repeat: repeat;
 }
 
 .login-card {
@@ -411,7 +415,9 @@
   gap: 16px;
   background: var(--color-white);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-card);
+  /* Фон теперь белый, поэтому карточке нужна более выраженная тень,
+     иначе она сливается с подложкой. */
+  box-shadow: 0 12px 40px rgba(38, 71, 148, 0.16);
   padding: 32px;
   text-align: left;
 }
