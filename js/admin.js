@@ -102,51 +102,40 @@ function renderGallery() {
 }
 
 /*
-  Загруженный файл уменьшаем прямо в браузере до 1200px по ширине и жмём в JPEG.
-  Без этого фото с телефона (3–5 МБ) в base64 мгновенно переполнит localStorage,
+  Выбранный файл сразу открывается в редакторе кадрирования: администратор
+  сам задаёт масштаб и видимую область. На выходе получается картинка 16:9 —
+  ровно в тех пропорциях, в которых она показывается на витрине и на странице
+  акции, поэтому браузеру уже нечего дообрезать.
+
+  Попутно решается вопрос веса: результат — 1200×675 JPEG (~150 КБ), тогда как
+  исходное фото с телефона на 3–5 МБ в base64 переполнило бы localStorage,
   у которого лимит ~5 МБ на весь сайт.
 */
-function fileToCompressedDataUrl(file, onDone, onError) {
-  const reader = new FileReader();
-
-  reader.onerror = () => onError("Не удалось прочитать файл.");
-  reader.onload = function (e) {
-    const img = new Image();
-
-    img.onerror = () => onError("Файл не похож на изображение.");
-    img.onload = function () {
-      const MAX_W = 1200;
-      const scale = Math.min(1, MAX_W / img.width);
-      const w = Math.round(img.width * scale);
-      const h = Math.round(img.height * scale);
-
-      const canvas = document.createElement("canvas");
-      canvas.width = w;
-      canvas.height = h;
-      canvas.getContext("2d").drawImage(img, 0, 0, w, h);
-
-      onDone(canvas.toDataURL("image/jpeg", 0.82));
-    };
-    img.src = e.target.result;
-  };
-
-  reader.readAsDataURL(file);
-}
-
 document.getElementById("input-image").addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (!file) return;
 
-  fileToCompressedDataUrl(
+  ImageCropper.openFile(
     file,
-    (dataUrl) => {
-      setImage(dataUrl);
-      e.target.value = "";
-    },
-    (message) => {
-      alert(message);
-      e.target.value = "";
-    }
+    (dataUrl) => setImage(dataUrl),
+    (message) => alert(message)
+  );
+
+  // сбрасываем, иначе повторный выбор того же файла не вызовет change
+  e.target.value = "";
+});
+
+// Перекадрировать уже выбранную картинку (в том числе из галереи)
+document.getElementById("btn-image-crop").addEventListener("click", () => {
+  const current = fields.image.value;
+  if (!current) {
+    alert("Сначала выберите изображение.");
+    return;
+  }
+  ImageCropper.openSrc(
+    current,
+    (dataUrl) => setImage(dataUrl),
+    (message) => alert(message)
   );
 });
 

@@ -301,9 +301,11 @@
   box-shadow: 0 10px 30px rgba(38, 71, 148, 0.15);
 }
 
+/* 16:9 — то же соотношение, что в редакторе кадрирования и у обложки,
+   поэтому выбранный админом кадр показывается без дополнительной обрезки. */
 .promo-tile__img {
   width: 100%;
-  height: 260px;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
   background: var(--color-primary-bg);
 }
@@ -357,7 +359,8 @@
 
 .promo-detail__hero {
   width: 100%;
-  height: 360px;
+  aspect-ratio: 16 / 9;
+  max-height: 620px;
   object-fit: cover;
   border-radius: var(--radius-md);
   background: var(--color-primary-bg);
@@ -509,7 +512,7 @@
 
 .image-picker__preview {
   width: 100%;
-  height: 150px;
+  aspect-ratio: 16 / 9;
   border-radius: var(--radius-sm);
   border: 1px dashed var(--color-blue-3);
   background: var(--color-primary-bg);
@@ -532,7 +535,14 @@
 
 .image-picker__actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+}
+
+/* Кнопок три, а колонка узкая — не даём подписям ломаться на две строки */
+.image-picker__actions .btn {
+  white-space: nowrap;
+  padding: 0 12px;
 }
 
 .image-picker__gallery-label {
@@ -583,6 +593,115 @@
 }
 
 .admin-toolbar__group {
+  display: flex;
+  gap: 10px;
+}
+
+/* ---------- Редактор кадрирования ---------- */
+
+.cropper {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(4, 13, 35, 0.6);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.cropper.is-open {
+  display: flex;
+}
+
+.cropper__dialog {
+  width: 100%;
+  max-width: 560px;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 60px rgba(4, 13, 35, 0.3);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cropper__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cropper__title {
+  margin: 0;
+  font-size: 20px;
+}
+
+.cropper__close {
+  border: none;
+  background: none;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--color-muted);
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.cropper__close:hover {
+  color: var(--color-accent);
+}
+
+.cropper__hint {
+  font-size: 13px;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+/* Рамка задаёт итоговое соотношение сторон: что попало в неё — то и сохранится */
+.cropper__viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-bg);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.cropper__viewport:active {
+  cursor: grabbing;
+}
+
+.cropper__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  max-width: none;
+  pointer-events: none;
+}
+
+.cropper__zoom {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cropper__zoom-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.cropper__zoom input {
+  flex: 1;
+  accent-color: var(--color-accent);
+}
+
+.cropper__actions {
   display: flex;
   gap: 10px;
 }
