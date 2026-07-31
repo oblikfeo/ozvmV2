@@ -53,6 +53,58 @@ function escapeHtml(str) {
     .replace(/"/g, "&quot;");
 }
 
+/*
+  Даты вводятся вручную как ДД.ММ.ГГГГ.
+
+  Штатный <input type="date"> не подошёл: всплывающий календарь рисует сам
+  браузер и берёт язык из своего интерфейса, а не из lang="ru" страницы —
+  у пользователя с английским браузером месяцы были на английском,
+  и повлиять на это со стороны страницы нельзя.
+
+  Внутри данные по-прежнему хранятся в ISO (ГГГГ-ММ-ДД).
+*/
+
+function pad2(n) {
+  return n < 10 ? "0" + n : String(n);
+}
+
+/** ISO (2026-08-15) -> отображение (15.08.2026) */
+function isoToInput(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
+  return m ? `${m[3]}.${m[2]}.${m[1]}` : "";
+}
+
+/** Ввод (15.08.2026) -> ISO. Возвращает null, если дата некорректная. */
+function inputToIso(text) {
+  const value = String(text || "").trim();
+  if (!value) return "";
+
+  const m = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/.exec(value);
+  if (!m) return null;
+
+  const day = Number(m[1]);
+  const month = Number(m[2]);
+  const year = Number(m[3]);
+
+  const d = new Date(year, month - 1, day);
+  // отсекаем 31.02 и подобное: Date молча переносит на следующий месяц
+  if (d.getFullYear() !== year || d.getMonth() !== month - 1 || d.getDate() !== day) {
+    return null;
+  }
+  return `${year}-${pad2(month)}-${pad2(day)}`;
+}
+
+/** Подставляет точки по мере ввода, чтобы не набирать их руками */
+function attachDateMask(input) {
+  input.addEventListener("input", () => {
+    const digits = input.value.replace(/\D/g, "").slice(0, 8);
+    let out = digits.slice(0, 2);
+    if (digits.length > 2) out += "." + digits.slice(2, 4);
+    if (digits.length > 4) out += "." + digits.slice(4, 8);
+    input.value = out;
+  });
+}
+
 /* ---------- Форма ---------- */
 
 const form = document.getElementById("promo-form");
@@ -141,6 +193,9 @@ document.getElementById("btn-image-crop").addEventListener("click", () => {
 
 document.getElementById("btn-image-clear").addEventListener("click", () => setImage(""));
 
+attachDateMask(fields.start);
+attachDateMask(fields.end);
+
 function resetForm() {
   form.reset();
   fields.id.value = "";
@@ -154,8 +209,8 @@ function fillForm(promo) {
   fields.title.value = promo.title || "";
   fields.short.value = promo.shortDescription || "";
   fields.full.value = promo.fullDescription || "";
-  fields.start.value = promo.dateStart || "";
-  fields.end.value = promo.dateEnd || "";
+  fields.start.value = isoToInput(promo.dateStart);
+  fields.end.value = isoToInput(promo.dateEnd);
   fields.active.checked = !!promo.active;
   setImage(promo.image || "");
   formTitle.textContent = "Редактирование";
@@ -224,14 +279,33 @@ tableBody.addEventListener("click", (e) => {
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
+  const dateStart = inputToIso(fields.start.value);
+  const dateEnd = inputToIso(fields.end.value);
+
+  if (dateStart === null) {
+    alert("Дата начала указана неверно. Формат: ДД.ММ.ГГГГ, например 15.08.2026");
+    fields.start.focus();
+    return;
+  }
+  if (dateEnd === null) {
+    alert("Дата окончания указана неверно. Формат: ДД.ММ.ГГГГ, например 15.08.2026");
+    fields.end.focus();
+    return;
+  }
+  if (dateStart && dateEnd && dateStart > dateEnd) {
+    alert("Дата окончания раньше даты начала.");
+    fields.end.focus();
+    return;
+  }
+
   const promo = {
     id: fields.id.value || null,
     title: fields.title.value.trim(),
     image: fields.image.value,
     shortDescription: fields.short.value.trim(),
     fullDescription: fields.full.value.trim(),
-    dateStart: fields.start.value,
-    dateEnd: fields.end.value,
+    dateStart: dateStart,
+    dateEnd: dateEnd,
     active: fields.active.checked,
   };
 
@@ -247,34 +321,6 @@ form.addEventListener("submit", (e) => {
 });
 
 document.getElementById("btn-cancel").addEventListener("click", resetForm);
-
-/* ---------- Экспорт / импорт / сброс ---------- */
-
-document.getElementById("btn-export").addEventListener("click", () => {
-  PromoStore.exportJSON();
-});
-
-document.getElementById("input-import").addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  PromoStore.importJSON(file, (ok) => {
-    if (ok) {
-      renderTable();
-    } else {
-      alert("Не удалось прочитать файл. Ожидается JSON-массив акций.");
-    }
-    e.target.value = "";
-  });
-});
-
-document.getElementById("btn-reset").addEventListener("click", () => {
-  if (confirm("Вернуть демо-данные? Все внесённые акции будут удалены.")) {
-    PromoStore.resetToSeed();
-    renderTable();
-    resetForm();
-  }
-});
 
 /* ---------- Старт ---------- */
 

@@ -176,36 +176,8 @@ const PromoStore = (function () {
     writeAll(list);
   }
 
-  function exportJSON() {
-    const blob = new Blob([JSON.stringify(readAll(), null, 2)], {
-      type: "application/json",
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "promotions.json";
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-
-  function importJSON(file, onDone) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      try {
-        const parsed = JSON.parse(e.target.result);
-        if (Array.isArray(parsed)) {
-          writeAll(parsed);
-          if (onDone) onDone(true);
-        } else {
-          if (onDone) onDone(false);
-        }
-      } catch (err) {
-        if (onDone) onDone(false);
-      }
-    };
-    reader.readAsText(file);
-  }
-
+  /* Аварийный возврат демо-данных. Кнопки в интерфейсе нет,
+     при необходимости вызывается из консоли: PromoStore.resetToSeed() */
   function resetToSeed() {
     resetSeed();
   }
@@ -220,8 +192,6 @@ const PromoStore = (function () {
     getById,
     upsert,
     remove,
-    exportJSON,
-    importJSON,
     resetToSeed,
     getBuiltinImages,
   };
