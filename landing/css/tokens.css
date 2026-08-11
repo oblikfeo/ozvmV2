@@ -1,0 +1,43 @@
+/*
+  Дизайн-система ЗооВетМир — перенесена из основного проекта (ozvm.ru).
+  Цвета и шрифт взяты как есть; добавлены только производные оттенки
+  и шкала отступов, чтобы вёрстка landing-страницы была согласованной.
+*/
+
+:root {
+  --font-main: 'Jost', sans-serif;
+
+  /* Брендовые цвета основного проекта */
+  --color-primary: #264794;
+  --color-primary-soft: rgba(38, 71, 148, 0.65);
+  --color-primary-faint: rgba(38, 71, 148, 0.4);
+  --color-primary-bg: #ECF5FF;
+
+  --color-accent: #C51A1A;
+  --color-accent-dark: #A81616;
+  --color-accent-soft: rgba(197, 26, 26, 0.4);
+
+  --color-blue-1: #1D93D2;
+  --color-blue-2: #A9C6D8;
+  --color-blue-3: #C8DAEA;
+  --color-banner: #C3E2F1;
+
+  --color-white: #FFFFFF;
+  --color-page-bg: #F5F5F5;
+  --color-ink: #040D23;
+  --color-muted: #4D6887;
+  --color-line: #E3ECF7;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 20px;
+
+  --shadow-card: 0 4px 20px rgba(38, 71, 148, 0.08);
+  --shadow-card-hover: 0 14px 36px rgba(38, 71, 148, 0.16);
+
+  /* Единая шкала отступов между секциями */
+  --section-gap: clamp(48px, 7vw, 92px);
+  --gutter: clamp(16px, 5vw, 60px);
+
+  --container: 1320px;
+}
