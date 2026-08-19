@@ -192,32 +192,6 @@
   white-space: nowrap;
 }
 
-/* Под номером — только короткий статус в одну строку: полный график
-   с тремя интервалами сюда не влезает, он живёт в блоке контактов.
-   Текст подставляет landing.js по времени Омска. */
-.header__status {
-  align-self: flex-end;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: var(--color-muted);
-  white-space: nowrap;
-}
-
-.header__status::before {
-  content: '';
-  flex-shrink: 0;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-muted);
-}
-
-.header__status.is-open::before {
-  background: #2FA35B;
-}
-
 .header__socials {
   display: flex;
   align-items: center;
@@ -281,7 +255,6 @@
 .header__burger span::after  { top: 6px; }
 
 @media (max-width: 1180px) {
-  .header__phone span { display: none; }
   .header__logo-tag { display: none; }
 }
 
@@ -1027,19 +1000,21 @@
 }
 
 /* График работы: день слева, время справа — читается сразу,
-   в отличие от перечисления через запятую. */
+   в отличие от перечисления через запятую. Ширина ограничена,
+   чтобы день и время не расползались по всей карточке. */
 .hours {
   display: grid;
   gap: 6px;
   margin-top: 8px;
-  max-width: 220px;
+  max-width: 330px;
 }
 
 .hours li {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 4px 14px;
   font-size: 14px;
 }
 

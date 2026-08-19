@@ -112,58 +112,6 @@
   restart();
 })();
 
-/* ---------- Статус «открыто / закрыто» в шапке ---------- */
-
-(function initWorkTime() {
-  const el = document.querySelector("[data-worktime]");
-  if (!el) return;
-
-  // Часы работы: [открытие, закрытие]. Воскресенья в списке нет — выходной.
-  const HOURS = { 1: [9, 19], 2: [9, 19], 3: [9, 19], 4: [9, 19], 5: [9, 19], 6: [9, 18] };
-  const DAY_SHORT = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
-  const WEEKDAY = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
-
-  // Магазин в Омске, а посетитель может быть в любом часовом поясе,
-  // поэтому день и время берём по Asia/Omsk, а не из локальной даты.
-  const fmt = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Asia/Omsk",
-    weekday: "short",
-    hour: "2-digit",
-    minute: "2-digit",
-    hourCycle: "h23",
-  });
-
-  function render() {
-    const parts = {};
-    fmt.formatToParts(new Date()).forEach((p) => (parts[p.type] = p.value));
-
-    const day = WEEKDAY[parts.weekday];
-    const minutes = Number(parts.hour) * 60 + Number(parts.minute);
-    const today = HOURS[day];
-
-    if (today) {
-      if (minutes < today[0] * 60) return set(false, `Откроется в ${today[0]}:00`);
-      if (minutes < today[1] * 60) return set(true, `Открыто до ${today[1]}:00`);
-    }
-
-    // Закрыто: показываем, когда откроемся снова
-    for (let i = 1; i <= 7; i++) {
-      const next = (day + i) % 7;
-      if (!HOURS[next]) continue;
-      const when = i === 1 ? "завтра" : DAY_SHORT[next];
-      return set(false, `Закрыто · ${when} с ${HOURS[next][0]}:00`);
-    }
-  }
-
-  function set(isOpen, text) {
-    el.textContent = text;
-    el.classList.toggle("is-open", isOpen);
-  }
-
-  render();
-  setInterval(render, 60000);
-})();
-
 /* ---------- Появление секций при скролле ---------- */
 
 (function initReveal() {
