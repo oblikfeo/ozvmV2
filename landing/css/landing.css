@@ -715,25 +715,9 @@
 }
 
 .about__photos {
-  position: relative;
-  isolation: isolate;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(12px, 1.4vw, 20px);
-}
-
-/* Голубая плашка выглядывает из-под фотографий справа снизу —
-   она держит композицию и связывает блок с фирменным цветом. */
-.about__photos::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  left: clamp(20px, 3vw, 40px);
-  right: calc(-1 * clamp(12px, 1.8vw, 24px));
-  top: clamp(28px, 4vw, 58px);
-  bottom: calc(-1 * clamp(12px, 1.8vw, 24px));
-  background: var(--color-primary-bg);
-  border-radius: var(--radius-lg);
 }
 
 .about__photo {
@@ -742,15 +726,12 @@
   box-shadow: var(--shadow-card);
 }
 
+/* Исходники ровно 3:4, так что кадр не обрезается */
 .about__photo img {
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
 }
-
-/* Левое фото ниже правого: иначе это просто две одинаковые плитки */
-.about__photo--cat { margin-top: clamp(24px, 4vw, 54px); }
-.about__photo--dog { margin-bottom: clamp(24px, 4vw, 54px); }
 
 .about__facts li {
   padding-block: clamp(15px, 1.5vw, 20px);
