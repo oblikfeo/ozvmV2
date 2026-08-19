@@ -192,9 +192,13 @@
   white-space: nowrap;
 }
 
+/* График занимает две строки, поэтому ширина ограничена: иначе блок
+   с телефоном распирает шапку и поджимает меню. */
 .header__phone span {
   font-size: 12px;
+  line-height: 1.3;
   color: var(--color-muted);
+  max-width: 200px;
 }
 
 .header__socials {
