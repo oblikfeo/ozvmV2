@@ -105,6 +105,44 @@
    1. Шапка
    ========================================================= */
 
+/* Тонкая полоса над шапкой: в самой шапке места нет — логотип, меню,
+   соцсети и телефон её уже заполняют. Полоса не липкая, уезжает
+   при скролле, липнет только шапка. */
+.topbar {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 38px;
+}
+
+.topbar__lk {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.topbar__lk:hover {
+  color: var(--color-banner);
+}
+
+@media (max-width: 620px) {
+  .topbar__inner { min-height: 34px; }
+  .topbar__lk { font-size: 12px; }
+}
+
 .header {
   position: sticky;
   top: 0;
