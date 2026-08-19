@@ -8,9 +8,9 @@
   --font-main: 'Jost', sans-serif;
 
   /* Брендовые цвета основного проекта */
-  --color-primary: #264794;
-  --color-primary-soft: rgba(38, 71, 148, 0.65);
-  --color-primary-faint: rgba(38, 71, 148, 0.4);
+  --color-primary: #1D93D2;
+  --color-primary-soft: rgba(29, 147, 210, 0.65);
+  --color-primary-faint: rgba(29, 147, 210, 0.45);
   --color-primary-bg: #ECF5FF;
 
   --color-accent: #C51A1A;
@@ -32,8 +32,8 @@
   --radius-md: 10px;
   --radius-lg: 20px;
 
-  --shadow-card: 0 4px 20px rgba(38, 71, 148, 0.08);
-  --shadow-card-hover: 0 14px 36px rgba(38, 71, 148, 0.16);
+  --shadow-card: 0 4px 20px rgba(29, 147, 210, 0.12);
+  --shadow-card-hover: 0 14px 36px rgba(29, 147, 210, 0.22);
 
   /* Единая шкала отступов между секциями */
   --section-gap: clamp(48px, 7vw, 92px);

@@ -41,8 +41,8 @@
       </a>
 
       <nav class="header__nav" data-nav>
+        <a href="#promotions">Акции</a>
         <a href="#categories">Каталог</a>
-        <a href="#products">Товары</a>
         <a href="#advantages">О компании</a>
         <a href="#steps">Доставка</a>
         <a href="#reviews">Отзывы</a>
@@ -103,7 +103,7 @@
                     для домашних и сельскохозяйственных животных.
                   </p>
                   <div class="slide__actions">
-                    <a class="btn btn-accent" href="#products">Смотреть товары</a>
+                    <a class="btn btn-accent" href="#categories">Смотреть каталог</a>
                     <a class="btn btn-light" href="#contacts">Связаться с нами</a>
                   </div>
                 </div>
@@ -119,7 +119,7 @@
                     со скидкой при заказе от 2 000 ₽.
                   </p>
                   <div class="slide__actions">
-                    <a class="btn btn-accent" href="#products">Перейти к акции</a>
+                    <a class="btn btn-accent" href="#promotions">Перейти к акции</a>
                   </div>
                 </div>
               </article>
@@ -206,8 +206,74 @@
       </div>
     </section>
 
-    <!-- ========== 3. Категории ========== -->
-    <section class="section" id="categories" data-reveal>
+    <!-- ========== 3. Акции ========== -->
+    <section class="section" id="promotions" data-reveal>
+      <div class="container">
+        <div class="section__head">
+          <div class="section__titles">
+            <span class="section__kicker">Акции</span>
+            <h2>Действующие предложения</h2>
+            <p class="section__lead">
+              Скидки и подарки этого сезона. Условия действуют до указанной даты,
+              детали уточняйте у оператора.
+            </p>
+          </div>
+          <a class="btn btn-outline" href="../">Все акции</a>
+        </div>
+
+        <div class="promos">
+
+          <article class="promo">
+            <div class="promo__media">
+              <img src="img/prod-vitamins.jpg" alt="Витамины и добавки для собак" loading="lazy" />
+              <span class="badge badge-accent promo__badge">−15%</span>
+            </div>
+            <div class="promo__body">
+              <span class="promo__date">до 31 августа</span>
+              <h3>Витамины и добавки для собак</h3>
+              <p>
+                Вся линейка витаминных комплексов и кормовых добавок
+                со скидкой при заказе от 2 000 ₽.
+              </p>
+            </div>
+          </article>
+
+          <article class="promo">
+            <div class="promo__media">
+              <img src="img/delivery-dog.jpg" alt="Доставка по Омску" loading="lazy" />
+              <span class="badge badge-accent promo__badge">Бесплатно</span>
+            </div>
+            <div class="promo__body">
+              <span class="promo__date">до 30 сентября</span>
+              <h3>Доставка по Омску от 3 000 ₽</h3>
+              <p>
+                Заказы до 14:00 привозим в тот же день. Курьер звонит
+                за 30–60 минут до приезда.
+              </p>
+            </div>
+          </article>
+
+          <article class="promo">
+            <div class="promo__media">
+              <img src="img/puppy-kitten.jpg" alt="Вакцинация щенков и котят" loading="lazy" />
+              <span class="badge badge-accent promo__badge">−20%</span>
+            </div>
+            <div class="promo__body">
+              <span class="promo__date">до 31 октября</span>
+              <h3>Вакцинация щенков и котят</h3>
+              <p>
+                Комплексные вакцины ведущих производителей.
+                Холодовая цепь на всём пути до вашего дома.
+              </p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 4. Категории ========== -->
+    <section class="section section--tinted" id="categories" data-reveal>
       <div class="container">
         <div class="section__head">
           <div class="section__titles">
@@ -272,159 +338,6 @@
       </div>
     </section>
 
-    <!-- ========== 4. Товары ========== -->
-    <section class="section section--tinted" id="products" data-reveal>
-      <div class="container">
-        <div class="section__head">
-          <div class="section__titles">
-            <span class="section__kicker">Витрина</span>
-            <h2>Популярное этой недели</h2>
-            <p class="section__lead">
-              Цены указаны с учётом действующих акций. Наличие уточняйте у оператора —
-              остатки меняются в течение дня.
-            </p>
-          </div>
-          <a class="btn btn-outline" href="#contacts">Запросить прайс</a>
-        </div>
-
-        <div class="products">
-
-          <article class="product">
-            <div class="product__media">
-              <img src="img/prod-vitamins.jpg" alt="Витаминный комплекс" loading="lazy" />
-              <span class="badge badge-accent product__tag">−15%</span>
-            </div>
-            <div class="product__brand">Beaphar</div>
-            <h3 class="product__name">Витаминный комплекс для взрослых собак, 180 таблеток</h3>
-            <div class="product__stock"><span class="badge badge-stock">В наличии</span></div>
-            <div class="product__footer">
-              <div class="product__prices">
-                <span class="product__price-old">1 490 ₽</span>
-                <span class="product__price">1 265 ₽</span>
-              </div>
-              <button class="product__cart" type="button" aria-label="В корзину">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 5h2l2.2 9.5a2 2 0 002 1.5h6.4a2 2 0 002-1.6L20 8H7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="10" cy="19" r="1.4" fill="currentColor"/>
-                  <circle cx="17" cy="19" r="1.4" fill="currentColor"/>
-                </svg>
-              </button>
-            </div>
-          </article>
-
-          <article class="product">
-            <div class="product__media">
-              <img src="img/prod-food.jpg" alt="Лечебный корм" loading="lazy" />
-              <span class="badge badge-blue product__tag">Хит</span>
-            </div>
-            <div class="product__brand">Royal Canin</div>
-            <h3 class="product__name">Диетический корм для кошек при МКБ, 2 кг</h3>
-            <div class="product__stock"><span class="badge badge-stock">В наличии</span></div>
-            <div class="product__footer">
-              <div class="product__prices">
-                <span class="product__price">1 940 ₽</span>
-              </div>
-              <button class="product__cart" type="button" aria-label="В корзину">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 5h2l2.2 9.5a2 2 0 002 1.5h6.4a2 2 0 002-1.6L20 8H7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="10" cy="19" r="1.4" fill="currentColor"/>
-                  <circle cx="17" cy="19" r="1.4" fill="currentColor"/>
-                </svg>
-              </button>
-            </div>
-          </article>
-
-          <article class="product">
-            <div class="product__media">
-              <img src="img/prod-syringe.jpg" alt="Вакцина" loading="lazy" />
-              <span class="badge badge-accent product__tag">−20%</span>
-            </div>
-            <div class="product__brand">Nobivac</div>
-            <h3 class="product__name">Вакцина комплексная для щенков, 1 доза</h3>
-            <div class="product__stock"><span class="badge badge-stock">В наличии</span></div>
-            <div class="product__footer">
-              <div class="product__prices">
-                <span class="product__price-old">890 ₽</span>
-                <span class="product__price">712 ₽</span>
-              </div>
-              <button class="product__cart" type="button" aria-label="В корзину">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 5h2l2.2 9.5a2 2 0 002 1.5h6.4a2 2 0 002-1.6L20 8H7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="10" cy="19" r="1.4" fill="currentColor"/>
-                  <circle cx="17" cy="19" r="1.4" fill="currentColor"/>
-                </svg>
-              </button>
-            </div>
-          </article>
-
-          <article class="product">
-            <div class="product__media">
-              <img src="img/prod-pills.jpg" alt="Антипаразитарный препарат" loading="lazy" />
-            </div>
-            <div class="product__brand">Мильбемакс</div>
-            <h3 class="product__name">Антигельминтный препарат для кошек, 2 таблетки</h3>
-            <div class="product__stock"><span class="badge badge-stock">В наличии</span></div>
-            <div class="product__footer">
-              <div class="product__prices">
-                <span class="product__price">640 ₽</span>
-              </div>
-              <button class="product__cart" type="button" aria-label="В корзину">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 5h2l2.2 9.5a2 2 0 002 1.5h6.4a2 2 0 002-1.6L20 8H7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="10" cy="19" r="1.4" fill="currentColor"/>
-                  <circle cx="17" cy="19" r="1.4" fill="currentColor"/>
-                </svg>
-              </button>
-            </div>
-          </article>
-
-          <article class="product">
-            <div class="product__media">
-              <img src="img/prod-care.jpg" alt="Средство по уходу" loading="lazy" />
-              <span class="badge badge-blue product__tag">Новинка</span>
-            </div>
-            <div class="product__brand">Api-San</div>
-            <h3 class="product__name">Капли на холку от блох и клещей, 3 пипетки</h3>
-            <div class="product__stock"><span class="badge badge-stock">В наличии</span></div>
-            <div class="product__footer">
-              <div class="product__prices">
-                <span class="product__price">520 ₽</span>
-              </div>
-              <button class="product__cart" type="button" aria-label="В корзину">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 5h2l2.2 9.5a2 2 0 002 1.5h6.4a2 2 0 002-1.6L20 8H7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="10" cy="19" r="1.4" fill="currentColor"/>
-                  <circle cx="17" cy="19" r="1.4" fill="currentColor"/>
-                </svg>
-              </button>
-            </div>
-          </article>
-
-          <article class="product">
-            <div class="product__media">
-              <img src="img/prod-shampoo.jpg" alt="Шампунь для животных" loading="lazy" />
-            </div>
-            <div class="product__brand">Doctor VIC</div>
-            <h3 class="product__name">Шампунь антисеборейный для собак и кошек, 250 мл</h3>
-            <div class="product__stock"><span class="badge badge-stock">В наличии</span></div>
-            <div class="product__footer">
-              <div class="product__prices">
-                <span class="product__price">385 ₽</span>
-              </div>
-              <button class="product__cart" type="button" aria-label="В корзину">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 5h2l2.2 9.5a2 2 0 002 1.5h6.4a2 2 0 002-1.6L20 8H7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="10" cy="19" r="1.4" fill="currentColor"/>
-                  <circle cx="17" cy="19" r="1.4" fill="currentColor"/>
-                </svg>
-              </button>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
     <!-- ========== 5. Почему мы ========== -->
     <section class="section" id="advantages" data-reveal>
       <div class="container">
@@ -439,63 +352,46 @@
           </div>
         </div>
 
-        <div class="advantages">
-          <article class="advantage">
-            <div class="advantage__icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/>
-                <path d="M3 9h18M8 4v3M16 4v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3>17 лет на рынке</h3>
-            <p>
-              Прошли через смену поставщиков, дефициты и импортозамещение —
-              и научились держать наличие даже по редким позициям.
-            </p>
-          </article>
+        <div class="about">
+          <div class="about__photos">
+            <figure class="about__photo about__photo--cat">
+              <img src="img/about-cat.jpg" alt="Кот" loading="lazy" />
+            </figure>
+            <figure class="about__photo about__photo--dog">
+              <img src="img/about-dog.jpg" alt="Собака" loading="lazy" />
+            </figure>
+          </div>
 
-          <article class="advantage">
-            <div class="advantage__icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M4 7l8-4 8 4-8 4-8-4z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
-                <path d="M4 12l8 4 8-4M4 17l8 4 8-4" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3>Более 4 000 позиций</h3>
-            <p>
-              Препараты для мелких домашних животных, птицы, КРС и лошадей.
-              Под заказ привозим то, чего нет на складе.
-            </p>
-          </article>
-
-          <article class="advantage">
-            <div class="advantage__icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 3l7 3v6c0 4.4-2.9 8.3-7 9.4C7.9 20.3 5 16.4 5 12V6l7-3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
-                <path d="M12 8v5M12 15.5v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3>Документы на каждую партию</h3>
-            <p>
-              Декларации соответствия и ветеринарные свидетельства.
-              Для юрлиц — полный пакет закрывающих документов.
-            </p>
-          </article>
-
-          <article class="advantage">
-            <div class="advantage__icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.7"/>
-                <path d="M3.5 19c.6-3.1 2.9-5 5.5-5s4.9 1.9 5.5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                <path d="M16 8.5a2.6 2.6 0 010 5M17.5 19c-.3-1.7-1-3.1-2-4.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3>Личный менеджер</h3>
-            <p>
-              Постоянным клиентам закрепляем менеджера: подскажет аналог,
-              соберёт заказ и предупредит о поступлении.
-            </p>
-          </article>
+          <ul class="about__facts">
+            <li>
+              <h3>17 лет на рынке</h3>
+              <p>
+                Прошли через смену поставщиков, дефициты и импортозамещение —
+                и научились держать наличие даже по редким позициям.
+              </p>
+            </li>
+            <li>
+              <h3>Более 4 000 позиций</h3>
+              <p>
+                Препараты для мелких домашних животных, птицы, КРС и лошадей.
+                Под заказ привозим то, чего нет на складе.
+              </p>
+            </li>
+            <li>
+              <h3>Документы на каждую партию</h3>
+              <p>
+                Декларации соответствия и ветеринарные свидетельства.
+                Для юрлиц — полный пакет закрывающих документов.
+              </p>
+            </li>
+            <li>
+              <h3>Личный менеджер</h3>
+              <p>
+                Постоянным клиентам закрепляем менеджера: подскажет аналог,
+                соберёт заказ и предупредит о поступлении.
+              </p>
+            </li>
+          </ul>
         </div>
 
         <div class="stats">
@@ -691,11 +587,35 @@
               <circle cx="12" cy="11" r="2.4" stroke="currentColor" stroke-width="1.7"/>
             </svg>
             <div>
-              <b>Омск</b>
+              <b>Омск, улица 10 лет Октября, 115</b>
               <span>доставка по городу и Омской области</span>
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ========== 9. Карта ========== -->
+    <section class="section map" id="map" data-reveal>
+      <div class="container">
+        <div class="section__head">
+          <div class="section__titles">
+            <span class="section__kicker">На карте</span>
+            <h2>Омск, улица 10 лет Октября, 115</h2>
+            <p class="section__lead">
+              Магазин и склад в одном месте: заказ можно забрать самому
+              или оформить доставку по городу и области.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="map__frame">
+        <iframe
+          src="https://yandex.ru/map-widget/v1/?text=%D0%9E%D0%BC%D1%81%D0%BA%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%2010%20%D0%BB%D0%B5%D1%82%20%D0%9E%D0%BA%D1%82%D1%8F%D0%B1%D1%80%D1%8F%2C%20115&amp;z=17"
+          title="Карта: Омск, улица 10 лет Октября, 115"
+          loading="lazy"
+          allowfullscreen></iframe>
       </div>
     </section>
 
