@@ -204,6 +204,8 @@
     </section>
 
     <!-- ========== 3. Акции ========== -->
+    <!-- Предложения самой аптеки. Со страницей акций (отдельный сервис)
+         блок не связан: ни данных, ни ссылок туда. -->
     <section class="section" id="promotions" data-reveal>
       <div class="container">
         <div class="section__head">
@@ -211,56 +213,55 @@
             <span class="section__kicker">Акции</span>
             <h2>Действующие предложения</h2>
             <p class="section__lead">
-              Скидки и подарки этого сезона. Условия действуют до указанной даты,
-              детали уточняйте у оператора.
+              Постоянные предложения аптеки. Условия уточняйте у оператора
+              при оформлении заказа.
             </p>
           </div>
-          <a class="btn btn-outline" href="../">Все акции</a>
         </div>
 
-        <div class="promos">
+        <div class="promos" data-promos>
 
           <article class="promo">
             <div class="promo__media">
-              <img src="/landing/img/prod-vitamins.jpg" alt="Витамины и добавки для собак" loading="lazy" />
-              <span class="badge badge-accent promo__badge">−15%</span>
+              <img src="/landing/img/prod-vitamins.jpg" alt="Домашняя ветаптечка" loading="lazy" />
+              <span class="badge badge-accent promo__badge">Набор</span>
             </div>
             <div class="promo__body">
-              <span class="promo__date">до 31 августа</span>
-              <h3>Витамины и добавки для собак</h3>
+              <span class="promo__date">при заказе от 2 000 ₽</span>
+              <h3>Домашняя ветаптечка одним заказом</h3>
               <p>
-                Вся линейка витаминных комплексов и кормовых добавок
-                со скидкой при заказе от 2 000 ₽.
+                Соберём базовый набор: обработка от паразитов, антисептик,
+                средства первой помощи и витамины.
               </p>
             </div>
           </article>
 
           <article class="promo">
             <div class="promo__media">
-              <img src="/landing/img/delivery-dog.jpg" alt="Доставка по Омску" loading="lazy" />
+              <img src="/landing/img/delivery-dog.jpg" alt="Термобокс для вакцин" loading="lazy" />
+              <span class="badge badge-accent promo__badge">В подарок</span>
+            </div>
+            <div class="promo__body">
+              <span class="promo__date">к заказу вакцин</span>
+              <h3>Термобокс с хладоэлементами</h3>
+              <p>
+                Термозависимые препараты упакуем так, чтобы вы довезли их
+                до клиники или дачи без потери свойств.
+              </p>
+            </div>
+          </article>
+
+          <article class="promo">
+            <div class="promo__media">
+              <img src="/landing/img/puppy-kitten.jpg" alt="Подбор препарата" loading="lazy" />
               <span class="badge badge-accent promo__badge">Бесплатно</span>
             </div>
             <div class="promo__body">
-              <span class="promo__date">до 30 сентября</span>
-              <h3>Доставка по Омску от 3 000 ₽</h3>
+              <span class="promo__date">до оформления заказа</span>
+              <h3>Подбор препарата и дозировки</h3>
               <p>
-                Заказы до 14:00 привозим в тот же день. Курьер звонит
-                за 30–60 минут до приезда.
-              </p>
-            </div>
-          </article>
-
-          <article class="promo">
-            <div class="promo__media">
-              <img src="/landing/img/puppy-kitten.jpg" alt="Вакцинация щенков и котят" loading="lazy" />
-              <span class="badge badge-accent promo__badge">−20%</span>
-            </div>
-            <div class="promo__body">
-              <span class="promo__date">до 31 октября</span>
-              <h3>Вакцинация щенков и котят</h3>
-              <p>
-                Комплексные вакцины ведущих производителей.
-                Холодовая цепь на всём пути до вашего дома.
+                Скажите вид, возраст и вес животного — рассчитаем курс
+                и предложим аналог, если нужной позиции нет в наличии.
               </p>
             </div>
           </article>
