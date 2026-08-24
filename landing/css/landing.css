@@ -429,6 +429,37 @@
   max-width: 620px;
 }
 
+/* Первый слайд — без фотофона: голубая плашка и вырезка с девушкой
+   во всю высоту слайда, как на входе в основной проект.
+   Текст тут тёмно-синий: подложка светлая. */
+.slide--brand {
+  background: var(--color-banner);
+}
+
+.slide--brand::before {
+  display: none;
+}
+
+.slide--brand .slide__title {
+  color: var(--color-primary);
+}
+
+.slide--brand .slide__text {
+  color: var(--color-muted);
+}
+
+.slide__cutout {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 0;
+  z-index: -1;
+  height: 100%;
+  width: auto;
+  max-width: 46%;
+  object-fit: contain;
+  object-position: bottom right;
+}
+
 .slide__badge {
   margin-bottom: 18px;
 }
@@ -511,7 +542,21 @@
   background: var(--color-white);
 }
 
+@media (max-width: 1100px) {
+  .slide__cutout {
+    height: 88%;
+    max-width: 40%;
+  }
+
+  .slide--brand .slide__box { max-width: 52%; }
+}
+
+/* Уже 860px вырезка налезала бы на текст — остаётся голубая плашка */
 @media (max-width: 860px) {
+  .slide__cutout { display: none; }
+
+  .slide--brand .slide__box { max-width: 620px; }
+
   .slider__arrow { display: none; }
   .slide::before {
     background: linear-gradient(
