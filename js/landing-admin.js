@@ -606,6 +606,7 @@ const LandingAdmin = (function () {
     box.appendChild(el("div", "image-picker__gallery-label", "или выберите готовое:"));
     box.appendChild(gallery);
     draw();
+    GalleryStrip.attach(gallery);
     return box;
   }
 
@@ -733,9 +734,15 @@ const LandingAdmin = (function () {
     tabsBox.querySelectorAll(".editor-tab").forEach(function (tab) {
       tab.classList.toggle("is-active", tab.dataset.section === id);
     });
+    let shown = null;
     panelsBox.querySelectorAll(".editor-panel").forEach(function (panel) {
       panel.hidden = panel.dataset.panel !== id;
+      if (!panel.hidden) shown = panel;
     });
+
+    // У скрытой панели ширина нулевая, поэтому ленты с картинками
+    // пересчитываем только когда панель показалась.
+    if (shown) GalleryStrip.refresh(shown);
   }
 
   /* ---------------- Сохранение ---------------- */

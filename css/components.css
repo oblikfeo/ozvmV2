@@ -550,14 +550,68 @@
   color: var(--color-muted);
 }
 
-.image-picker__gallery {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+/* Готовые картинки — одной лентой со стрелками, а не сеткой в несколько
+   рядов: в лендинге их почти два десятка, сетка занимала пол-формы. */
+.image-picker__slider {
+  display: flex;
+  align-items: center;
   gap: 6px;
+  min-width: 0;
+}
+
+.image-picker__gallery {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-blue-3) transparent;
+}
+
+.image-picker__gallery::-webkit-scrollbar {
+  height: 6px;
+}
+
+.image-picker__gallery::-webkit-scrollbar-thumb {
+  background: var(--color-blue-3);
+  border-radius: 3px;
+}
+
+.image-picker__arrow {
+  display: none;
+  place-items: center;
+  flex-shrink: 0;
+  width: 26px;
+  height: 62px;
+  padding: 0;
+  border: 1px solid var(--color-blue-3);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+/* Стрелки нужны, только если лента длиннее видимой части */
+.image-picker__slider.is-scrollable .image-picker__arrow {
+  display: grid;
+}
+
+.image-picker__arrow:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.image-picker__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
 }
 
 .image-picker__thumb {
-  aspect-ratio: 1 / 1;
+  flex: 0 0 auto;
+  width: 62px;
+  height: 62px;
+  scroll-snap-align: start;
   border-radius: var(--radius-sm);
   overflow: hidden;
   border: 2px solid transparent;

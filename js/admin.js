@@ -57,6 +57,7 @@ function showView(name) {
   sessionStorage.setItem(VIEW_KEY, target);
 
   if (target === "landing") LandingAdmin.open();
+  else GalleryStrip.refresh(views[target]);
 }
 
 document.querySelectorAll(".admin-switch__btn").forEach((btn) => {
@@ -197,6 +198,8 @@ function renderGallery() {
     btn.addEventListener("click", () => setImage(img.path));
     imageGallery.appendChild(btn);
   });
+
+  GalleryStrip.attach(imageGallery);
 }
 
 /*
