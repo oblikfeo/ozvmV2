@@ -112,9 +112,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   gap: 8px;
   height: 42px;
-  padding: 0 16px;
+  padding: 0 14px;
   border: 1px solid var(--color-primary);
   border-radius: var(--radius-md);
   background: var(--color-white);
@@ -146,8 +147,10 @@
 .header__inner {
   display: flex;
   align-items: center;
-  gap: clamp(16px, 3vw, 40px);
+  flex-wrap: nowrap;
+  gap: clamp(12px, 1.6vw, 26px);
   min-height: 84px;
+  max-width: 1560px;
 }
 
 .header__logo {
@@ -183,12 +186,13 @@
 .header__nav {
   display: flex;
   align-items: center;
-  gap: clamp(14px, 1.8vw, 30px);
+  gap: clamp(10px, 1.3vw, 22px);
   margin-left: auto;
+  min-width: 0;
 }
 
 .header__nav a {
-  font-size: 16px;
+  font-size: 15px;
   white-space: nowrap;
   font-weight: 500;
   color: var(--color-ink);
@@ -205,7 +209,7 @@
 .header__actions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   flex-shrink: 0;
 }
 
@@ -232,8 +236,9 @@
 .header__social {
   display: grid;
   place-items: center;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
   border-radius: 50%;
   background: var(--color-primary-bg);
   transition: transform 0.2s ease, background-color 0.2s ease;
@@ -285,19 +290,23 @@
 .header__burger span::before { top: -6px; }
 .header__burger span::after  { top: 6px; }
 
-@media (max-width: 1180px) {
+@media (max-width: 1320px) {
   .header__logo-tag { display: none; }
+}
 
-  /* Соцсети уезжают раньше меню: иначе телефон и кабинет не влезают */
-  .header__socials { display: none; }
-
-  /* Места на подпись уже нет — остаётся иконка, название в aria-label */
+/* Подпись у кабинета — только когда под неё реально есть место.
+   Ниже остаётся иконка, название читает скринридер из aria-label. */
+@media (max-width: 1240px) {
   .header__lk {
     width: 42px;
     padding: 0;
   }
 
   .header__lk span { display: none; }
+}
+
+@media (max-width: 1100px) {
+  .header__socials { display: none; }
 }
 
 @media (max-width: 1000px) {
