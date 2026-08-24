@@ -33,7 +33,7 @@
   const track = root.querySelector("[data-track]");
   const slides = Array.from(track.children);
   const dotsBox = root.querySelector("[data-dots]");
-  const AUTOPLAY_MS = 6000;
+  const AUTOPLAY_MS = 7500;
 
   if (slides.length <= 1) return;
 

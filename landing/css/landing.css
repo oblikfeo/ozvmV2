@@ -105,42 +105,34 @@
    1. Шапка
    ========================================================= */
 
-/* Тонкая полоса над шапкой: в самой шапке места нет — логотип, меню,
-   соцсети и телефон её уже заполняют. Полоса не липкая, уезжает
-   при скролле, липнет только шапка. */
-.topbar {
+/* Кабинет партнёра — в правой части шапки, рядом с телефоном.
+   Пока это <button> без действия: авторизация не подключена.
+   Когда появится вход, тег меняется на <a href> — стили те же. */
+.header__lk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.header__lk:hover {
   background: var(--color-primary);
   color: var(--color-white);
 }
 
-.topbar__inner {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  min-height: 38px;
-}
-
-.topbar__lk {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0;
-  border: none;
-  background: none;
-  color: inherit;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.topbar__lk:hover {
-  color: var(--color-banner);
-}
-
-@media (max-width: 620px) {
-  .topbar__inner { min-height: 34px; }
-  .topbar__lk { font-size: 12px; }
+.header__lk svg {
+  flex-shrink: 0;
 }
 
 .header {
@@ -197,6 +189,7 @@
 
 .header__nav a {
   font-size: 16px;
+  white-space: nowrap;
   font-weight: 500;
   color: var(--color-ink);
   padding: 6px 0;
@@ -294,6 +287,14 @@
 
 @media (max-width: 1180px) {
   .header__logo-tag { display: none; }
+
+  /* Места на подпись уже нет — остаётся иконка, название в aria-label */
+  .header__lk {
+    width: 42px;
+    padding: 0;
+  }
+
+  .header__lk span { display: none; }
 }
 
 @media (max-width: 1000px) {
@@ -340,7 +341,7 @@
 
 .hero {
   position: relative;
-  padding-block: clamp(20px, 3vw, 40px) var(--section-gap);
+  padding-block: 0 var(--section-gap);
   background-color: var(--color-page-bg);
   background-image: url('../img/pawsBCG.svg');
   background-size: cover;
@@ -352,12 +353,12 @@
   z-index: 2;
 }
 
+/* Слайдер от края до края экрана — широкоформатные баннеры.
+   Отступов по бокам нет: их держит .container внутри слайда. */
 .slider {
   position: relative;
-  border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--color-primary);
-  box-shadow: var(--shadow-card);
 }
 
 .slider__viewport {
@@ -373,7 +374,7 @@
 .slide {
   position: relative;
   flex: 0 0 100%;
-  min-height: clamp(380px, 46vw, 560px);
+  min-height: clamp(360px, 34vw, 640px);
   display: flex;
   align-items: center;
   isolation: isolate;
@@ -396,17 +397,56 @@
   z-index: -1;
   background: linear-gradient(
     100deg,
-    rgba(4, 13, 35, 0.86) 0%,
-    rgba(4, 13, 35, 0.66) 42%,
-    rgba(4, 13, 35, 0.12) 78%,
-    rgba(4, 13, 35, 0) 100%
+    rgba(4, 13, 35, 0.78) 0%,
+    rgba(4, 13, 35, 0.55) 40%,
+    rgba(4, 13, 35, 0.1) 72%,
+    rgba(4, 13, 35, 0) 92%
   );
 }
 
+/* У слайдера своей ширины нет, поэтому текст держит .container —
+   левый край совпадает с заголовками секций ниже. */
 .slide__content {
-  max-width: 620px;
-  padding: clamp(28px, 4vw, 60px);
+  position: relative;
+  padding-block: clamp(34px, 4vw, 60px) clamp(58px, 6vw, 84px);
   color: var(--color-white);
+}
+
+.slide__box {
+  max-width: 620px;
+}
+
+/* Первый слайд — без фотографии: фирменный голубой фон и вырезка
+   с девушкой и собакой, та же, что на входе в основной проект.
+   Текст тут тёмный: подложка светлая. */
+.slide--brand {
+  background: linear-gradient(115deg, var(--color-primary-bg) 0%, var(--color-banner) 100%);
+}
+
+.slide--brand::before {
+  display: none;
+}
+
+.slide--brand .slide__title {
+  color: var(--color-primary);
+}
+
+.slide--brand .slide__text {
+  color: var(--color-muted);
+}
+
+.slide__cutout {
+  position: absolute;
+  right: clamp(10px, 5vw, 110px);
+  bottom: 0;
+  z-index: -1;
+  width: clamp(300px, 32vw, 520px);
+  height: auto;
+}
+
+@media (max-width: 860px) {
+  /* Вырезка налезала бы на текст — на узком экране остаётся только фон */
+  .slide__cutout { display: none; }
 }
 
 .slide__badge {
@@ -452,23 +492,22 @@
   transform: translateY(-50%) scale(1.06);
 }
 
-.slider__arrow--prev { left: 18px; }
-.slider__arrow--next { right: 18px; }
-
-/* Пока стрелки видны, отводим текст правее: иначе левая стрелка
-   (18px + 52px) наезжает на заголовок слайда. */
-@media (min-width: 861px) {
-  .slide__content { padding-left: 96px; }
-  .slider__dots { left: 96px; }
-}
+/* На широком экране стрелки стоят чуть снаружи контейнера,
+   на узком — прижимаются к краю. */
+.slider__arrow--prev { left: max(18px, calc(50% - var(--container) / 2 - 64px)); }
+.slider__arrow--next { right: max(18px, calc(50% - var(--container) / 2 - 64px)); }
 
 .slider__dots {
   position: absolute;
-  left: clamp(28px, 4vw, 60px);
+  left: 50%;
+  transform: translateX(-50%);
   bottom: clamp(20px, 3vw, 32px);
   z-index: 3;
   display: flex;
   gap: 8px;
+  width: 100%;
+  max-width: var(--container);
+  padding-inline: var(--gutter);
 }
 
 .slider__dot {
@@ -489,7 +528,6 @@
 
 @media (max-width: 860px) {
   .slider__arrow { display: none; }
-  .slide__content { padding-bottom: 66px; }
   .slide::before {
     background: linear-gradient(
       180deg,
@@ -510,7 +548,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1px;
-  margin-top: 22px;
+  margin-top: clamp(22px, 3vw, 40px);
   background: var(--color-line);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-md);

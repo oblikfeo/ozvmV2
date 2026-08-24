@@ -16,20 +16,6 @@
 <body>
 
   <!-- ========== 1. Шапка ========== -->
-  <!-- Полоса над шапкой: вход в кабинет партнёра. Кнопка, а не ссылка —
-       авторизация ещё не подключена, поэтому нажатие ничего не делает. -->
-  <div class="topbar">
-    <div class="container topbar__inner">
-      <button class="topbar__lk" type="button" title="Раздел в разработке">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.7"/>
-          <path d="M5 20c.9-3.6 3.7-5.6 7-5.6s6.1 2 7 5.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-        </svg>
-        Личный кабинет партнёра
-      </button>
-    </div>
-  </div>
-
   <header class="header">
     <div class="container header__inner">
       <a class="header__logo" href="#top">
@@ -68,6 +54,17 @@
           <b>+7 (904) 829-92-02</b>
         </a>
 
+        <!-- Кабинет партнёра: пока заглушка, авторизация не подключена.
+             Когда появится вход — меняется на <a href>, стили те же. -->
+        <button class="header__lk" type="button" title="Раздел в разработке"
+                aria-label="Личный кабинет партнёра">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.7"/>
+            <path d="M5 20c.9-3.6 3.7-5.6 7-5.6s6.1 2 7 5.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+          </svg>
+          <span>Личный кабинет партнёра</span>
+        </button>
+
         <button class="header__burger" type="button" data-burger aria-label="Меню" aria-expanded="false">
           <span></span>
         </button>
@@ -78,8 +75,9 @@
   <main id="top">
 
     <!-- ========== 2. Слайдер баннеров ========== -->
+    <!-- Слайдер во всю ширину экрана: широкоформатные баннеры.
+         Текст выровнен по общему контейнеру, чтобы совпадать с секциями ниже. -->
     <section class="hero">
-      <!-- Анимация лапок из основного проекта -->
       <div class="paws" aria-hidden="true">
         <span class="paw paw--1"><img src="img/firstpaws.png" alt="" /></span>
         <span class="paw paw--2"><img src="img/secondpaws.png" alt="" /></span>
@@ -88,14 +86,15 @@
         <span class="paw paw--5"><img src="img/secondpaws.png" alt="" /></span>
       </div>
 
-      <div class="container">
-        <div class="slider" data-slider tabindex="0" role="region" aria-label="Баннеры">
-          <div class="slider__viewport">
-            <div class="slider__track" data-track>
+      <div class="slider" data-slider tabindex="0" role="region" aria-label="Баннеры">
+        <div class="slider__viewport">
+          <div class="slider__track" data-track>
 
-              <article class="slide">
-                <img class="slide__img" src="img/banner-1.jpg" alt="" />
-                <div class="slide__content">
+            <!-- Девушка с собакой — та же вырезка, что на входе в основной проект -->
+            <article class="slide slide--brand">
+              <img class="slide__cutout" src="img/girl-dog.png" alt="" width="792" height="681" />
+              <div class="container slide__content">
+                <div class="slide__box">
                   <span class="badge badge-accent slide__badge">Сезонное предложение</span>
                   <h1 class="slide__title">Ветеринарная аптека полного профиля</h1>
                   <p class="slide__text">
@@ -104,29 +103,33 @@
                   </p>
                   <div class="slide__actions">
                     <a class="btn btn-accent" href="#categories">Смотреть каталог</a>
-                    <a class="btn btn-light" href="#contacts">Связаться с нами</a>
+                    <a class="btn btn-outline" href="#contacts">Связаться с нами</a>
                   </div>
                 </div>
-              </article>
+              </div>
+            </article>
 
-              <article class="slide">
-                <img class="slide__img" src="img/banner-2.jpg" alt="" />
-                <div class="slide__content">
-                  <span class="badge badge-accent slide__badge">Скидка 15%</span>
-                  <h2 class="slide__title">Витамины и добавки для собак</h2>
+            <article class="slide">
+              <img class="slide__img" src="img/slide-care.jpg" alt="" />
+              <div class="container slide__content">
+                <div class="slide__box">
+                  <span class="badge badge-accent slide__badge">С 2001 года</span>
+                  <h2 class="slide__title">Более 25 лет заботимся о ваших питомцах</h2>
                   <p class="slide__text">
-                    Вся линейка витаминных комплексов и кормовых добавок
-                    со скидкой при заказе от 2 000 ₽.
+                    От первой прививки щенку до плановой обработки стада. За это время
+                    мы точно узнали, какие препараты работают, — и держим их в наличии.
                   </p>
                   <div class="slide__actions">
-                    <a class="btn btn-accent" href="#promotions">Перейти к акции</a>
+                    <a class="btn btn-accent" href="#advantages">О компании</a>
                   </div>
                 </div>
-              </article>
+              </div>
+            </article>
 
-              <article class="slide">
-                <img class="slide__img" src="img/banner-3.jpg" alt="" />
-                <div class="slide__content">
+            <article class="slide">
+              <img class="slide__img" src="img/slide-delivery.jpg" alt="" />
+              <div class="container slide__content">
+                <div class="slide__box">
                   <span class="badge badge-accent slide__badge">Бесплатно от 3 000 ₽</span>
                   <h2 class="slide__title">Доставим по Омску в день заказа</h2>
                   <p class="slide__text">
@@ -137,25 +140,27 @@
                     <a class="btn btn-accent" href="#steps">Как это работает</a>
                   </div>
                 </div>
-              </article>
+              </div>
+            </article>
 
-            </div>
           </div>
-
-          <button class="slider__arrow slider__arrow--prev" type="button" data-prev aria-label="Предыдущий баннер">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-          <button class="slider__arrow slider__arrow--next" type="button" data-next aria-label="Следующий баннер">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-
-          <div class="slider__dots" data-dots></div>
         </div>
 
+        <button class="slider__arrow slider__arrow--prev" type="button" data-prev aria-label="Предыдущий баннер">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <button class="slider__arrow slider__arrow--next" type="button" data-next aria-label="Следующий баннер">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+
+        <div class="slider__dots" data-dots></div>
+      </div>
+
+      <div class="container">
         <div class="hero__strip">
           <div class="hero__strip-item">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -347,7 +352,7 @@
             <h2>Почему выбирают ЗооВетМир</h2>
             <p class="section__lead">
               Мы снабжаем ветеринарные клиники, зоомагазины и хозяйства Омской области
-              с 2009 года. Знаем ассортимент не по каталогу, а по практике.
+              с 2001 года. Знаем ассортимент не по каталогу, а по практике.
             </p>
           </div>
         </div>
@@ -364,7 +369,7 @@
 
           <ul class="about__facts">
             <li>
-              <h3>17 лет на рынке</h3>
+              <h3>25 лет на рынке</h3>
               <p>
                 Прошли через смену поставщиков, дефициты и импортозамещение —
                 и научились держать наличие даже по редким позициям.
@@ -396,7 +401,7 @@
 
         <div class="stats">
           <div class="stat">
-            <div class="stat__value">17</div>
+            <div class="stat__value">25</div>
             <div class="stat__label">лет на рынке</div>
           </div>
           <div class="stat">
