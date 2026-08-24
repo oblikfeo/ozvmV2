@@ -128,7 +128,7 @@
 
 .header__lk:hover {
   background: var(--color-primary);
-  color: var(--color-white);
+  color: var(--color-ink);
 }
 
 .header__lk svg {
@@ -428,7 +428,7 @@
 }
 
 .slide--brand .slide__title {
-  color: var(--color-primary);
+  color: #264794;
 }
 
 .slide--brand .slide__text {
@@ -962,13 +962,16 @@
    8. CTA + футер
    ========================================================= */
 
+/* Светло-голубой фон + тёмный текст — та же пара, что в баннере
+   каталога основного проекта (#C3E2F1 фон / #264794 текст),
+   а не белый текст на насыщенной заливке. */
 .cta {
   position: relative;
   overflow: hidden;
   background-color: var(--color-primary);
   background-image: url('../img/pawsBCG.svg');
   background-size: cover;
-  color: var(--color-white);
+  color: var(--color-ink);
 }
 
 .cta__inner {
@@ -981,11 +984,12 @@
 }
 
 .cta h2 {
-  color: var(--color-white);
+  color: #264794;
 }
 
 .cta p {
-  color: rgba(255, 255, 255, 0.92);
+  color: var(--color-ink);
+  opacity: 0.75;
   margin-top: 14px;
   max-width: 520px;
 }
@@ -998,18 +1002,18 @@
 }
 
 .cta__card {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: var(--color-white);
+  border: 1px solid rgba(4, 13, 35, 0.08);
   border-radius: var(--radius-md);
   padding: clamp(22px, 2.4vw, 32px);
-  backdrop-filter: blur(2px);
+  box-shadow: var(--shadow-card);
 }
 
 .cta__row {
   display: flex;
   gap: 14px;
   padding-block: 14px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  border-bottom: 1px solid var(--color-line);
 }
 
 .cta__row:last-child {
@@ -1024,18 +1028,19 @@
 .cta__row svg {
   flex-shrink: 0;
   margin-top: 2px;
-  color: var(--color-banner);
+  color: #264794;
 }
 
 .cta__row b {
   display: block;
   font-size: 16px;
   font-weight: 600;
+  color: var(--color-ink);
 }
 
 .cta__row span {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--color-muted);
 }
 
 /* График работы: день слева, время справа — читается сразу,
@@ -1096,8 +1101,8 @@
 
 .footer {
   background: var(--color-primary);
-  border-top: 1px solid rgba(255, 255, 255, 0.22);
-  color: rgba(255, 255, 255, 0.85);
+  border-top: 1px solid rgba(4, 13, 35, 0.1);
+  color: var(--color-muted);
   padding-block: clamp(30px, 4vw, 48px);
 }
 
@@ -1118,7 +1123,7 @@
 .footer__brand b {
   font-size: 17px;
   font-weight: 600;
-  color: var(--color-white);
+  color: var(--color-ink);
   border-right: 1px solid var(--color-accent);
   padding-right: 12px;
 }

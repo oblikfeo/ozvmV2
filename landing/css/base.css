@@ -171,13 +171,14 @@ p {
 
 .btn-outline:hover {
   background: var(--color-primary);
-  color: var(--color-white);
+  color: var(--color-ink);
 }
 
 /* Контурная кнопка на тёмной/фотографической подложке */
 .btn-light {
   background: var(--color-white);
-  color: var(--color-primary);
+  color: var(--color-ink);
+  border-color: var(--color-line);
 }
 
 .btn-light:hover {
@@ -214,6 +215,6 @@ p {
 }
 
 .badge-stock {
-  background: rgba(29, 147, 210, 0.12);
+  background: rgba(108, 187, 227, 0.18);
   color: var(--color-blue-1);
 }
