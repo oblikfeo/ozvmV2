@@ -288,6 +288,9 @@
 @media (max-width: 1180px) {
   .header__logo-tag { display: none; }
 
+  /* Соцсети уезжают раньше меню: иначе телефон и кабинет не влезают */
+  .header__socials { display: none; }
+
   /* Места на подпись уже нет — остаётся иконка, название в aria-label */
   .header__lk {
     width: 42px;
@@ -299,7 +302,6 @@
 
 @media (max-width: 1000px) {
   .header__burger { display: grid; }
-  .header__socials { display: none; }
 
   .header__nav {
     position: absolute;
@@ -330,6 +332,8 @@
 
 @media (max-width: 620px) {
   .header__inner { min-height: 70px; }
+  .header__logo-text { display: none; }
+  .header__actions { gap: 10px; }
   .header__logo img { width: 48px; height: 48px; }
   .header__logo-name { font-size: 17px; }
   .header__phone b { font-size: 15px; }
@@ -437,15 +441,17 @@
   gap: 12px;
 }
 
+/* Стрелки в правом нижнем углу, по правому краю контейнера.
+   По центру они на любом экране уже 1448px наезжали на текст слайда:
+   текст идёт по контейнеру, а стрелки прижимались к краю экрана. */
 .slider__arrow {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: clamp(16px, 2.2vw, 26px);
   z-index: 3;
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
+  width: 46px;
+  height: 46px;
   border: none;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.9);
@@ -456,19 +462,22 @@
 
 .slider__arrow:hover {
   background: var(--color-white);
-  transform: translateY(-50%) scale(1.06);
+  transform: scale(1.06);
 }
 
-/* На широком экране стрелки стоят чуть снаружи контейнера,
-   на узком — прижимаются к краю. */
-.slider__arrow--prev { left: max(18px, calc(50% - var(--container) / 2 - 64px)); }
-.slider__arrow--next { right: max(18px, calc(50% - var(--container) / 2 - 64px)); }
+.slider__arrow--next {
+  right: max(var(--gutter), calc(50% - var(--container) / 2 + var(--gutter)));
+}
+
+.slider__arrow--prev {
+  right: calc(max(var(--gutter), calc(50% - var(--container) / 2 + var(--gutter))) + 54px);
+}
 
 .slider__dots {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: clamp(20px, 3vw, 32px);
+  bottom: clamp(28px, 2.9vw, 36px);
   z-index: 3;
   display: flex;
   gap: 8px;
