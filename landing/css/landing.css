@@ -416,6 +416,27 @@
   max-width: 620px;
 }
 
+.slide__badge {
+  margin-bottom: 18px;
+}
+
+.slide__title {
+  color: var(--color-white);
+  margin-bottom: 16px;
+}
+
+.slide__text {
+  color: rgba(255, 255, 255, 0.86);
+  margin-bottom: 28px;
+  max-width: 480px;
+}
+
+.slide__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
 .slider__arrow {
   position: absolute;
   top: 50%;
