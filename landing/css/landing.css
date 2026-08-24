@@ -416,60 +416,6 @@
   max-width: 620px;
 }
 
-/* Первый слайд — без фотографии: фирменный голубой фон и вырезка
-   с девушкой и собакой, та же, что на входе в основной проект.
-   Текст тут тёмный: подложка светлая. */
-.slide--brand {
-  background: var(--color-banner);
-}
-
-.slide--brand::before {
-  display: none;
-}
-
-.slide--brand .slide__title {
-  color: var(--color-primary);
-}
-
-.slide--brand .slide__text {
-  color: var(--color-muted);
-}
-
-.slide__cutout {
-  position: absolute;
-  right: clamp(10px, 5vw, 110px);
-  bottom: 0;
-  z-index: -1;
-  width: clamp(300px, 32vw, 520px);
-  height: auto;
-}
-
-@media (max-width: 860px) {
-  /* Вырезка налезала бы на текст — на узком экране остаётся только фон */
-  .slide__cutout { display: none; }
-}
-
-.slide__badge {
-  margin-bottom: 18px;
-}
-
-.slide__title {
-  color: var(--color-white);
-  margin-bottom: 16px;
-}
-
-.slide__text {
-  color: rgba(255, 255, 255, 0.86);
-  margin-bottom: 28px;
-  max-width: 480px;
-}
-
-.slide__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
 .slider__arrow {
   position: absolute;
   top: 50%;
