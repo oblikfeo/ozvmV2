@@ -7,17 +7,19 @@
 :root {
   --font-main: 'Jost', sans-serif;
 
-  /* Брендовые цвета основного проекта */
-  --color-primary: #6CBBE3;
-  --color-primary-soft: rgba(108, 187, 227, 0.65);
-  --color-primary-faint: rgba(108, 187, 227, 0.45);
+  /* Три цвета основного проекта и больше ничего:
+     тёмно-синий — весь текст и акценты, голубой — плашки
+     (шапка каталога на ozvm.ru), красный — действия. */
+  --color-primary: #264794;
+  --color-primary-soft: rgba(38, 71, 148, 0.65);
+  --color-primary-faint: rgba(38, 71, 148, 0.45);
   --color-primary-bg: #ECF5FF;
 
   --color-accent: #C51A1A;
   --color-accent-dark: #A81616;
   --color-accent-soft: rgba(197, 26, 26, 0.4);
 
-  --color-blue-1: #6CBBE3;
+  --color-blue-1: #264794;
   --color-blue-2: #A9C6D8;
   --color-blue-3: #C8DAEA;
   --color-banner: #C3E2F1;
@@ -32,8 +34,8 @@
   --radius-md: 10px;
   --radius-lg: 20px;
 
-  --shadow-card: 0 4px 20px rgba(108, 187, 227, 0.22);
-  --shadow-card-hover: 0 14px 36px rgba(108, 187, 227, 0.34);
+  --shadow-card: 0 4px 20px rgba(38, 71, 148, 0.10);
+  --shadow-card-hover: 0 14px 36px rgba(38, 71, 148, 0.18);
 
   /* Единая шкала отступов между секциями */
   --section-gap: clamp(48px, 7vw, 92px);

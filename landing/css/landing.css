@@ -128,7 +128,7 @@
 
 .header__lk:hover {
   background: var(--color-primary);
-  color: var(--color-ink);
+  color: var(--color-white);
 }
 
 .header__lk svg {
@@ -358,7 +358,7 @@
 .slider {
   position: relative;
   overflow: hidden;
-  background: var(--color-primary);
+  background: var(--color-banner);
 }
 
 .slider__viewport {
@@ -420,7 +420,7 @@
    с девушкой и собакой, та же, что на входе в основной проект.
    Текст тут тёмный: подложка светлая. */
 .slide--brand {
-  background: linear-gradient(115deg, var(--color-primary-bg) 0%, var(--color-banner) 100%);
+  background: var(--color-banner);
 }
 
 .slide--brand::before {
@@ -428,7 +428,7 @@
 }
 
 .slide--brand .slide__title {
-  color: #264794;
+  color: var(--color-primary);
 }
 
 .slide--brand .slide__text {
@@ -825,7 +825,7 @@
 }
 
 .stat {
-  background: var(--color-primary-bg);
+  background: var(--color-banner);
   color: var(--color-ink);
   padding: clamp(22px, 2.4vw, 34px);
   text-align: center;
@@ -836,7 +836,7 @@
   font-weight: 600;
   line-height: 1;
   margin-bottom: 8px;
-  color: #264794;
+  color: var(--color-primary);
 }
 
 .stat__label {
@@ -968,7 +968,7 @@
 .cta {
   position: relative;
   overflow: hidden;
-  background-color: var(--color-primary);
+  background-color: var(--color-banner);
   background-image: url('../img/pawsBCG.svg');
   background-size: cover;
   color: var(--color-ink);
@@ -984,7 +984,7 @@
 }
 
 .cta h2 {
-  color: #264794;
+  color: var(--color-primary);
 }
 
 .cta p {
@@ -1028,14 +1028,14 @@
 .cta__row svg {
   flex-shrink: 0;
   margin-top: 2px;
-  color: #264794;
+  color: var(--color-primary);
 }
 
 .cta__row b {
   display: block;
   font-size: 16px;
   font-weight: 600;
-  color: var(--color-ink);
+  color: var(--color-primary);
 }
 
 .cta__row span {
@@ -1064,11 +1064,11 @@
 
 /* Селекторы с двумя классами — иначе перекрывает .cta__row span */
 .hours .hours__day {
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--color-muted);
 }
 
 .hours .hours__time {
-  color: var(--color-white);
+  color: var(--color-ink);
   white-space: nowrap;
 }
 
@@ -1089,7 +1089,7 @@
 .map__frame {
   height: clamp(320px, 42vw, 520px);
   margin-top: clamp(24px, 3vw, 40px);
-  background: var(--color-primary-bg);
+  background: var(--color-banner);
 }
 
 .map__frame iframe {
@@ -1100,8 +1100,7 @@
 }
 
 .footer {
-  background: var(--color-primary);
-  border-top: 1px solid rgba(4, 13, 35, 0.1);
+  background: var(--color-banner);
   color: var(--color-muted);
   padding-block: clamp(30px, 4vw, 48px);
 }
@@ -1123,7 +1122,7 @@
 .footer__brand b {
   font-size: 17px;
   font-weight: 600;
-  color: var(--color-ink);
+  color: var(--color-primary);
   border-right: 1px solid var(--color-accent);
   padding-right: 12px;
 }
