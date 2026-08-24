@@ -10,12 +10,58 @@ function showApp() {
   adminApp.hidden = false;
   renderTable();
   renderGallery();
+  showView(sessionStorage.getItem(VIEW_KEY) || "promos");
 }
 
 function showLogin() {
   adminApp.hidden = true;
   loginScreen.hidden = false;
 }
+
+/* ---------- Переключение разделов ---------- */
+
+/*
+  В панели два независимых сервиса: страница акций и лендинг.
+  Переключатель стоит в шапке слева, вместо прежней подписи.
+  Выбранный раздел запоминается на время сессии, чтобы после
+  перезагрузки не выкидывало обратно в акции.
+*/
+
+const VIEW_KEY = "admin_active_view";
+
+const views = {
+  promos: document.getElementById("view-promos"),
+  landing: document.getElementById("view-landing"),
+};
+
+// Куда ведёт «Смотреть на сайте →» в каждом разделе
+const viewLinks = {
+  promos: "index.html",
+  landing: "landing/",
+};
+
+function showView(name) {
+  const target = views[name] ? name : "promos";
+
+  Object.keys(views).forEach((key) => {
+    views[key].hidden = key !== target;
+  });
+
+  document.querySelectorAll(".admin-switch__btn").forEach((btn) => {
+    const isActive = btn.dataset.view === target;
+    btn.classList.toggle("is-active", isActive);
+    btn.setAttribute("aria-selected", String(isActive));
+  });
+
+  document.getElementById("view-link").href = viewLinks[target];
+  sessionStorage.setItem(VIEW_KEY, target);
+
+  if (target === "landing") LandingAdmin.open();
+}
+
+document.querySelectorAll(".admin-switch__btn").forEach((btn) => {
+  btn.addEventListener("click", () => showView(btn.dataset.view));
+});
 
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();

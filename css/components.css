@@ -813,3 +813,291 @@
   font-size: 13px;
   color: var(--color-muted);
 }
+
+
+/* ---------- Admin: переключатель разделов в шапке ---------- */
+
+.admin-bar__brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.admin-switch {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.admin-switch__btn {
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.admin-switch__btn:hover {
+  color: var(--color-white);
+}
+
+.admin-switch__btn.is-active {
+  background: var(--color-white);
+  color: var(--color-primary);
+}
+
+/* ---------- Admin: редактор лендинга ---------- */
+
+.editor-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-top: 30px;
+}
+
+.editor-head h1 {
+  margin: 0;
+}
+
+.editor-head__note {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: var(--color-muted);
+  max-width: 520px;
+}
+
+.editor-head__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.editor-status {
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.editor-status--ok {
+  color: var(--color-primary);
+}
+
+.editor-status--warn {
+  color: var(--color-accent);
+}
+
+/* Слева список секций страницы, справа формы выбранной секции. */
+.editor {
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  gap: 24px;
+  padding: 24px 0 60px;
+  align-items: start;
+}
+
+.editor-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 8px;
+  position: sticky;
+  top: 20px;
+}
+
+.editor-tab {
+  font-family: var(--font-main);
+  font-size: 14px;
+  text-align: left;
+  padding: 10px 14px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.editor-tab:hover {
+  background: var(--color-primary-bg);
+}
+
+.editor-tab.is-active {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.editor-panels {
+  min-width: 0;
+}
+
+.editor-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.editor-block {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 22px;
+}
+
+.editor-block__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.editor-block__title {
+  margin: 0;
+  font-size: 17px;
+}
+
+.editor-block__hint {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.editor-block__body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+/* Один повторяющийся блок страницы: баннер, карточка, шаг и т.д. */
+.editor-item {
+  border: 1px solid var(--color-blue-3);
+  border-radius: var(--radius-md);
+  margin-top: 14px;
+  overflow: hidden;
+}
+
+.editor-item__bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--color-primary-bg);
+}
+
+.editor-item__num {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.editor-item__name {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.editor-item__tools {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.editor-item__tool {
+  font-family: var(--font-main);
+  font-size: 14px;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--color-blue-3);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.editor-item__tool:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.editor-item__tool:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.editor-item__tool--danger:hover:not(:disabled) {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.editor-item__body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px 14px;
+}
+
+/* Подсказка под полем и выпадающий список — их не было в форме акций. */
+.field__hint {
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+.field select {
+  font-family: var(--font-main);
+  font-size: 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-blue-3);
+  border-radius: var(--radius-sm);
+  color: var(--color-ink);
+  background: var(--color-white);
+}
+
+.field select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+@media (max-width: 860px) {
+  .editor {
+    grid-template-columns: 1fr;
+  }
+
+  .editor-tabs {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 560px) {
+  .field-row {
+    flex-direction: column;
+  }
+}

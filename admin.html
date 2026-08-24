@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Админ-панель — Акции</title>
+  <title>Админ-панель ЗооВетМир</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/tokens.css" />
@@ -16,7 +16,7 @@
     <form class="login-card" id="login-form">
       <img class="login-card__logo" src="img/miniLogo.svg" alt="ЗооВетМир" />
       <h1 class="login-card__title">Админ-панель</h1>
-      <p class="login-card__subtitle">Управление акциями</p>
+      <p class="login-card__subtitle">Акции и лендинг</p>
 
       <div class="field">
         <label for="login-user">Логин</label>
@@ -42,15 +42,24 @@
   <div id="admin-app" hidden>
     <header class="admin-bar">
       <div class="container admin-bar__inner">
-        <span class="admin-bar__title">ЗооВетМир — управление акциями</span>
+        <!-- Слева не подпись, а переключатель: в панели два независимых
+             сервиса — страница акций и лендинг. -->
+        <div class="admin-bar__brand">
+          <span class="admin-bar__title">ЗооВетМир</span>
+          <div class="admin-switch" role="tablist" aria-label="Раздел админ-панели">
+            <button class="admin-switch__btn is-active" type="button" data-view="promos" role="tab" aria-selected="true">Акции</button>
+            <button class="admin-switch__btn" type="button" data-view="landing" role="tab" aria-selected="false">Лендинг</button>
+          </div>
+        </div>
         <div class="admin-bar__actions">
-          <a class="btn btn-ghost btn-sm" href="index.html" target="_blank" rel="noopener">Смотреть на сайте →</a>
+          <a class="btn btn-ghost btn-sm" id="view-link" href="index.html" target="_blank" rel="noopener">Смотреть на сайте →</a>
           <button class="btn btn-outline-light btn-sm" id="btn-logout">Выйти</button>
         </div>
       </div>
     </header>
 
-    <main class="container">
+    <!-- ========== Раздел 1: акции ========== -->
+    <main class="container" id="view-promos">
       <section style="padding-top: 30px;">
         <h1>Акции</h1>
       </section>
@@ -135,11 +144,37 @@
         </form>
       </div>
     </main>
+
+    <!-- ========== Раздел 2: лендинг ========== -->
+    <!-- Формы строит js/landing-admin.js по схеме разделов страницы. -->
+    <main class="container" id="view-landing" hidden>
+      <section class="editor-head">
+        <div>
+          <h1>Лендинг</h1>
+          <p class="editor-head__note">
+            Правки уходят на страницу <b>/landing</b>. Это отдельный сервис,
+            с акциями он не связан.
+          </p>
+        </div>
+        <div class="editor-head__actions">
+          <span class="editor-status" id="lp-status"></span>
+          <button class="btn btn-outline" type="button" id="lp-reset">Вернуть исходное</button>
+          <button class="btn btn-accent" type="button" id="lp-save">Сохранить</button>
+        </div>
+      </section>
+
+      <div class="editor">
+        <nav class="editor-tabs" id="lp-tabs"></nav>
+        <div class="editor-panels" id="lp-panels"></div>
+      </div>
+    </main>
   </div>
 
   <script src="js/auth.js"></script>
   <script src="js/store.js"></script>
+  <script src="js/landing-store.js"></script>
   <script src="js/cropper.js"></script>
+  <script src="js/landing-admin.js"></script>
   <script src="js/admin.js"></script>
 </body>
 </html>

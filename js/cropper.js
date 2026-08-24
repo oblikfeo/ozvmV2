@@ -12,12 +12,15 @@
 */
 
 const ImageCropper = (function () {
-  // Пропорции и размер результата. 16:9 — то же соотношение,
-  // что у плитки и обложки, поэтому кадр совпадает с тем, что увидит покупатель.
-  const ASPECT = 16 / 9;
+  // Пропорции результата. По умолчанию 16:9 — то же соотношение, что
+  // у плитки акции и обложки, поэтому кадр совпадает с тем, что увидит
+  // покупатель. Для лендинга бывают другие рамки (например 3:4 у фото
+  // «о компании»), поэтому пропорции можно передать при открытии.
+  const DEFAULT_ASPECT = 16 / 9;
   const OUT_WIDTH = 1200;
-  const OUT_HEIGHT = Math.round(OUT_WIDTH / ASPECT); // 675
   const JPEG_QUALITY = 0.85;
+
+  let aspect = DEFAULT_ASPECT;
 
   let overlay = null;
   let img = null;
@@ -156,6 +159,7 @@ const ImageCropper = (function () {
 
   function fit() {
     const viewport = overlay.querySelector("#cropper-viewport");
+    viewport.style.aspectRatio = String(aspect);
     viewportW = viewport.clientWidth;
     viewportH = viewport.clientHeight;
 
@@ -181,12 +185,14 @@ const ImageCropper = (function () {
     const sWidth = viewportW / scale;
     const sHeight = viewportH / scale;
 
+    const outHeight = Math.round(OUT_WIDTH / aspect);
+
     const canvas = document.createElement("canvas");
     canvas.width = OUT_WIDTH;
-    canvas.height = OUT_HEIGHT;
+    canvas.height = outHeight;
 
     const ctx = canvas.getContext("2d");
-    ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, OUT_WIDTH, OUT_HEIGHT);
+    ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, OUT_WIDTH, outHeight);
 
     const dataUrl = canvas.toDataURL("image/jpeg", JPEG_QUALITY);
     const cb = onApplyCallback;
@@ -199,9 +205,10 @@ const ImageCropper = (function () {
     onApplyCallback = null;
   }
 
-  function openWithSource(src, onApply, onError) {
+  function openWithSource(src, onApply, onError, aspectOption) {
     if (!overlay) build();
 
+    aspect = Number(aspectOption) > 0 ? Number(aspectOption) : DEFAULT_ASPECT;
     onApplyCallback = onApply;
     overlay.classList.add("is-open");
 
@@ -217,17 +224,17 @@ const ImageCropper = (function () {
   }
 
   /** Открыть редактор для выбранного файла */
-  function openFile(file, onApply, onError) {
+  function openFile(file, onApply, onError, aspectOption) {
     const reader = new FileReader();
     reader.onerror = () => onError && onError("Не удалось прочитать файл.");
-    reader.onload = (e) => openWithSource(e.target.result, onApply, onError);
+    reader.onload = (e) => openWithSource(e.target.result, onApply, onError, aspectOption);
     reader.readAsDataURL(file);
   }
 
   /** Открыть редактор для уже выбранной картинки (например из галереи) */
-  function openSrc(src, onApply, onError) {
-    openWithSource(src, onApply, onError);
+  function openSrc(src, onApply, onError, aspectOption) {
+    openWithSource(src, onApply, onError, aspectOption);
   }
 
-  return { openFile, openSrc, ASPECT };
+  return { openFile, openSrc, ASPECT: DEFAULT_ASPECT };
 })();
