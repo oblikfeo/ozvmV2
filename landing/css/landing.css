@@ -448,6 +448,46 @@
   color: var(--color-muted);
 }
 
+/* Лапки на голубой плашке: те же, что в анимации первого экрана.
+   Три штуки разного размера в свободной полосе между текстом и вырезкой,
+   лежат ниже неё — если перекроются, уйдут за фигуру, а не поверх. */
+.brand-paws {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.brand-paw {
+  position: absolute;
+  height: auto;
+}
+
+.brand-paw--1 {
+  left: 60%;
+  top: 5%;
+  width: 96px;
+  opacity: 0.5;
+  transform: rotate(-14deg);
+}
+
+.brand-paw--2 {
+  left: 68%;
+  bottom: 8%;
+  width: 62px;
+  opacity: 0.42;
+  transform: rotate(16deg);
+}
+
+.brand-paw--3 {
+  left: 54%;
+  bottom: 30%;
+  width: 44px;
+  opacity: 0.34;
+  transform: rotate(-5deg);
+}
+
 .slide__cutout {
   position: absolute;
   right: var(--gutter);
@@ -554,6 +594,10 @@
 /* Уже 860px вырезка налезала бы на текст — остаётся голубая плашка */
 @media (max-width: 860px) {
   .slide__cutout { display: none; }
+
+  .brand-paw--1 { left: auto; right: 6%; top: 7%; width: 82px; }
+  .brand-paw--2 { left: 6%; bottom: 7%; width: 56px; }
+  .brand-paw--3 { display: none; }
 
   .slide--brand .slide__box { max-width: 620px; }
 
