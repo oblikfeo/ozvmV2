@@ -908,7 +908,7 @@
   color: var(--color-primary);
 }
 
-/* ---------- Admin: редактор лендинга ---------- */
+/* ---------- Admin: редактор розницы ---------- */
 
 .editor-head {
   display: flex;
@@ -921,13 +921,6 @@
 
 .editor-head h1 {
   margin: 0;
-}
-
-.editor-head__note {
-  margin: 6px 0 0;
-  font-size: 14px;
-  color: var(--color-muted);
-  max-width: 520px;
 }
 
 .editor-head__actions {

@@ -16,7 +16,7 @@
     <form class="login-card" id="login-form">
       <img class="login-card__logo" src="img/miniLogo.svg" alt="ЗооВетМир" />
       <h1 class="login-card__title">Админ-панель</h1>
-      <p class="login-card__subtitle">Акции и лендинг</p>
+      <p class="login-card__subtitle">Акции и розница</p>
 
       <div class="field">
         <label for="login-user">Логин</label>
@@ -43,12 +43,12 @@
     <header class="admin-bar">
       <div class="container admin-bar__inner">
         <!-- Слева не подпись, а переключатель: в панели два независимых
-             сервиса — страница акций и лендинг. -->
+             сервиса — страница акций и розница. -->
         <div class="admin-bar__brand">
           <span class="admin-bar__title">ЗооВетМир</span>
           <div class="admin-switch" role="tablist" aria-label="Раздел админ-панели">
             <button class="admin-switch__btn is-active" type="button" data-view="promos" role="tab" aria-selected="true">Акции</button>
-            <button class="admin-switch__btn" type="button" data-view="landing" role="tab" aria-selected="false">Лендинг</button>
+            <button class="admin-switch__btn" type="button" data-view="landing" role="tab" aria-selected="false">Розница</button>
           </div>
         </div>
         <div class="admin-bar__actions">
@@ -145,17 +145,11 @@
       </div>
     </main>
 
-    <!-- ========== Раздел 2: лендинг ========== -->
+    <!-- ========== Раздел 2: розница ========== -->
     <!-- Формы строит js/landing-admin.js по схеме разделов страницы. -->
     <main class="container" id="view-landing" hidden>
       <section class="editor-head">
-        <div>
-          <h1>Лендинг</h1>
-          <p class="editor-head__note">
-            Правки уходят на страницу <b>/landing</b>. Это отдельный сервис,
-            с акциями он не связан.
-          </p>
-        </div>
+        <h1>Розница</h1>
         <div class="editor-head__actions">
           <span class="editor-status" id="lp-status"></span>
           <button class="btn btn-outline" type="button" id="lp-reset">Вернуть исходное</button>
