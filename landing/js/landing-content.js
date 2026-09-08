@@ -225,7 +225,39 @@
       .join("");
   })();
 
-  /* ---------- 5. О компании ---------- */
+  /* ---------- 5. Оптовым покупателям ---------- */
+
+  (function renderWholesale() {
+    const w = data.wholesale;
+    const section = q("#wholesale");
+    if (!section || !w) return;
+
+    setText(".section__kicker", w.kicker, section);
+    const heading = q("h2", section);
+    if (heading) heading.textContent = w.heading || "";
+
+    setText(".wholesale__lead", w.lead, section);
+    setText(".wholesale__who-label", w.whoLabel, section);
+    setText(".wholesale__geo", w.geo, section);
+    setText(".wholesale__note", w.note, section);
+
+    const tags = q(".wholesale__tags", section);
+    if (tags) {
+      tags.innerHTML = (w.who || [])
+        .map(function (item) {
+          return "<li>" + esc(item.name) + "</li>";
+        })
+        .join("");
+    }
+
+    const btn = q(".wholesale__btn", section);
+    if (btn) {
+      btn.href = w.btnHref || "#";
+      btn.textContent = w.btnText || "";
+    }
+  })();
+
+  /* ---------- 6. О компании ---------- */
 
   (function renderAbout() {
     head("#advantages", data.about);
@@ -262,7 +294,7 @@
     }
   })();
 
-  /* ---------- 6. Как заказать ---------- */
+  /* ---------- 7. Как заказать ---------- */
 
   (function renderSteps() {
     head("#steps", data.steps);
@@ -277,7 +309,7 @@
       .join("");
   })();
 
-  /* ---------- 7. Отзывы ---------- */
+  /* ---------- 8. Отзывы ---------- */
 
   /** «Анна Ковалёва» -> «АК» для кружка рядом с именем */
   function initials(name) {
@@ -312,7 +344,7 @@
       .join("");
   })();
 
-  /* ---------- 8. Контакты ---------- */
+  /* ---------- 9. Контакты ---------- */
 
   (function renderContacts() {
     const c = data.contacts;
@@ -367,7 +399,7 @@
       "</div>";
   })();
 
-  /* ---------- 9. Карта ---------- */
+  /* ---------- 10. Карта ---------- */
 
   (function renderMap() {
     head("#map", data.map);

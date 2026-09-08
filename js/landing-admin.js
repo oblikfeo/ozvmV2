@@ -211,6 +211,47 @@ const LandingAdmin = (function () {
     },
 
     {
+      id: "wholesale",
+      label: "Опт",
+      blocks: [
+        {
+          type: "fields",
+          path: "wholesale",
+          title: "Блок для оптовых покупателей",
+          fields: headFields().concat([
+            { key: "whoLabel", label: "Подпись перед списком", type: "text" },
+            { key: "geo", label: "Строка про поставки", type: "textarea", rows: 2 },
+            {
+              row: [
+                { key: "btnText", label: "Кнопка: текст", type: "text" },
+                {
+                  key: "btnHref",
+                  label: "Кнопка: ссылка",
+                  type: "text",
+                  hint: "Страница регистрации основного проекта.",
+                },
+              ],
+            },
+            { key: "note", label: "Текст под кнопкой", type: "textarea", rows: 3 },
+          ]),
+        },
+        {
+          type: "list",
+          path: "wholesale.who",
+          title: "Для кого",
+          addLabel: "Добавить",
+          titleField: "name",
+          min: 1,
+          hint: "Плашки идут в строку и переносятся сами.",
+          newItem: function () {
+            return { name: "новая категория покупателей" };
+          },
+          fields: [{ key: "name", label: "Кто это", type: "text" }],
+        },
+      ],
+    },
+
+    {
       id: "about",
       label: "О компании",
       blocks: [
