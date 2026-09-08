@@ -18,7 +18,7 @@ const LandingStore = (function () {
   const VERSION_KEY = "landing_prototype_version";
   /* Поднять число, если структура seed изменилась и сохранённые данные
      старого формата нужно выбросить. */
-  const VERSION = "1";
+  const VERSION = "2";
 
   const IMG = "/landing/img/";
 
