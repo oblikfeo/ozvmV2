@@ -25,6 +25,7 @@ const LandingStore = (function () {
   /* Картинки, которые уже лежат в /landing/img/ — галерея готовых
      изображений в админке. */
   const gallery = [
+    { path: IMG + "slide-main.jpg", label: "Баннер: главный" },
     { path: IMG + "girl-hero.webp", label: "Девушка с собакой (вырезка)" },
     { path: IMG + "slide-care.jpg", label: "Баннер: забота" },
     { path: IMG + "slide-delivery.jpg", label: "Баннер: доставка" },
@@ -69,12 +70,12 @@ const LandingStore = (function () {
     slides: [
       {
         id: "s1",
-        kind: "brand",
+        kind: "photo",
         badge: "Сезонное предложение",
         title: "Ветеринарная аптека полного профиля",
         text:
           "Более 4 000 наименований препаратов, вакцин, кормов и витаминов для домашних и сельскохозяйственных животных.",
-        image: IMG + "girl-hero.webp",
+        image: IMG + "slide-main.jpg",
         btn1Text: "Смотреть каталог",
         btn1Href: "#categories",
         btn2Text: "Связаться с нами",

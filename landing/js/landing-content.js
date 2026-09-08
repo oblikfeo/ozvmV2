@@ -135,8 +135,11 @@
             '<a class="btn btn-accent" href="' + esc(slide.btn1Href || "#") + '">' + esc(slide.btn1Text) + "</a>";
         }
         if (slide.btn2Text) {
+          /* На фото вторая кнопка белая: текст слайда светлый и обводка
+             тёмно-синим на затемнении не читается. */
+          const btn2 = isBrand ? "btn-outline" : "btn-light";
           actions +=
-            '<a class="btn btn-outline" href="' + esc(slide.btn2Href || "#") + '">' + esc(slide.btn2Text) + "</a>";
+            '<a class="btn ' + btn2 + '" href="' + esc(slide.btn2Href || "#") + '">' + esc(slide.btn2Text) + "</a>";
         }
 
         return (
