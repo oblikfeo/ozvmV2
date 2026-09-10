@@ -956,6 +956,27 @@
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
+  animation: aboutZoom 19s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Медленный наезд и отъезд — кадр всё время чуть живой, но заметить
+   движение можно, только если задержать на нём взгляд. */
+@keyframes aboutZoom {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* У второго кадра период другой и не кратный первому — как у лапок
+   в шапке, иначе обе фотографии дышат в такт и это бросается в глаза. */
+.about__photo:nth-child(2) img {
+  animation-duration: 25s;
+  animation-delay: -8s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about__photo img { animation: none; }
 }
 
 .about__facts li {

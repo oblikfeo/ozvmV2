@@ -159,3 +159,70 @@
     window.scrollTo({ top: 0, behavior: smooth ? "smooth" : "auto" });
   });
 })();
+
+/* ---------- Цифры в «Почему выбирают»: счёт от нуля ---------- */
+
+(function initStats() {
+  const values = document.querySelectorAll(".stat__value");
+  if (!values.length) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  /* Из «4 000+» и «24 ч» вынимаем само число, а всё, что стоит вокруг
+     него, возвращаем на место как есть — вместе с тем же разделителем
+     тысяч, что стоял в вёрстке. */
+  function parse(text) {
+    const m = text.match(/^(\D*?)([\d\s]*\d)(.*)$/);
+    if (!m) return null;
+
+    const raw = m[2];
+    const sepMatch = raw.match(/[\s]/);
+
+    return {
+      prefix: m[1],
+      suffix: m[3],
+      value: Number(raw.replace(/[^\d]/g, "")),
+      sep: sepMatch ? sepMatch[0] : "",
+    };
+  }
+
+  function render(parts, n) {
+    let body = String(n);
+    if (parts.sep) {
+      body = body.replace(/\B(?=(\d{3})+(?!\d))/g, parts.sep);
+    }
+    return parts.prefix + body + parts.suffix;
+  }
+
+  function run(el) {
+    const parts = parse(el.textContent.trim());
+    if (!parts || !parts.value) return;
+
+    const duration = 1200;
+    const started = performance.now();
+
+    function step(now) {
+      const p = Math.min((now - started) / duration, 1);
+      // Замедление к концу, чтобы цифра доезжала, а не обрывалась
+      const eased = 1 - Math.pow(1 - p, 3);
+
+      el.textContent = render(parts, Math.round(parts.value * eased));
+      if (p < 1) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(entry.target);
+        run(entry.target);
+      });
+    },
+    { threshold: 0.6 }
+  );
+
+  values.forEach((el) => observer.observe(el));
+})();
