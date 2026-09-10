@@ -198,7 +198,7 @@
     const parts = parse(el.textContent.trim());
     if (!parts || !parts.value) return;
 
-    const duration = 1200;
+    const duration = 1600;
     const started = performance.now();
 
     function step(now) {
