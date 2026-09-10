@@ -58,10 +58,10 @@ const LandingAdmin = (function () {
             { key: "telegram", label: "Ссылка на Telegram", type: "text" },
             { key: "max", label: "Ссылка на MAX", type: "text" },
             {
-              key: "lkText",
-              label: "Надпись на кнопке кабинета",
-              type: "text",
-              hint: "Кнопка пока заглушка: авторизация не подключена.",
+              row: [
+                { key: "lkText", label: "Надпись на кнопке кабинета", type: "text" },
+                { key: "lkHref", label: "Ссылка кабинета", type: "text", hint: "https://ozvm.ru/lk" },
+              ],
             },
           ],
         },

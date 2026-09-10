@@ -106,7 +106,11 @@
     if (socials[0]) socials[0].href = h.telegram || "#";
     if (socials[1]) socials[1].href = h.max || "#";
 
-    setText(".header__lk span", h.lkText);
+    const lk = q(".header__lk");
+    if (lk) {
+      lk.href = h.lkHref || "#";
+      setText("span", h.lkText, lk);
+    }
   })();
 
   /* ---------- 2. Слайдер ---------- */

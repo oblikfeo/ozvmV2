@@ -106,8 +106,7 @@
    ========================================================= */
 
 /* Кабинет партнёра — в правой части шапки, рядом с телефоном.
-   Пока это <button> без действия: авторизация не подключена.
-   Когда появится вход, тег меняется на <a href> — стили те же. */
+   Ведёт на кабинет основного проекта (ozvm.ru/lk). */
 .header__lk {
   display: inline-flex;
   align-items: center;
@@ -183,19 +182,26 @@
   max-width: 190px;
 }
 
+/* Полоса меню под шапкой. Голубая заливка отделяет её и от белой шапки,
+   и от первого слайда, а пункты перестают тесниться рядом с телефоном. */
+.header__navbar {
+  background: var(--color-primary-bg);
+  border-top: 1px solid var(--color-line);
+}
+
 .header__nav {
   display: flex;
   align-items: center;
-  gap: clamp(10px, 1.3vw, 22px);
-  margin-left: auto;
-  min-width: 0;
+  gap: clamp(14px, 2vw, 34px);
+  min-height: 50px;
+  max-width: 1560px;
 }
 
 .header__nav a {
   font-size: 15px;
   white-space: nowrap;
   font-weight: 500;
-  color: var(--color-ink);
+  color: var(--color-primary);
   padding: 6px 0;
   border-bottom: 2px solid transparent;
   transition: color 0.2s ease, border-color 0.2s ease;
@@ -210,6 +216,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-left: auto;
   flex-shrink: 0;
 }
 
@@ -312,8 +319,13 @@
 @media (max-width: 1000px) {
   .header__burger { display: grid; }
 
+  /* Полоса убирается из потока, и меню снова становится выпадающим
+     списком под шапкой — разметка и скрипт при этом те же. */
+  .header__navbar { display: contents; }
+
   .header__nav {
     position: absolute;
+    min-height: 0;
     top: 100%;
     left: 0;
     right: 0;
@@ -334,6 +346,10 @@
   .header__nav a {
     padding: 13px 0;
     border-bottom: 1px solid var(--color-line);
+  }
+
+  .header__nav a:hover {
+    border-bottom-color: var(--color-line);
   }
 
   .header__actions { margin-left: auto; }
@@ -402,7 +418,9 @@
   z-index: -2;
 }
 
-/* Затемнение слева, чтобы текст читался на любой фотографии */
+/* Затемнение слева, чтобы текст читался на любой фотографии.
+   Держим его настолько слабым, насколько позволяет читаемость: фото
+   должно оставаться видимым, а не уходить в тёмное пятно. */
 .slide::before {
   content: '';
   position: absolute;
@@ -410,9 +428,9 @@
   z-index: -1;
   background: linear-gradient(
     100deg,
-    rgba(4, 13, 35, 0.78) 0%,
-    rgba(4, 13, 35, 0.55) 40%,
-    rgba(4, 13, 35, 0.1) 72%,
+    rgba(4, 13, 35, 0.62) 0%,
+    rgba(4, 13, 35, 0.38) 40%,
+    rgba(4, 13, 35, 0.06) 72%,
     rgba(4, 13, 35, 0) 92%
   );
 }
@@ -1303,4 +1321,64 @@
 .footer__note {
   font-size: 13px;
   max-width: 520px;
+}
+
+/* =========================================================
+   10. Кнопка «наверх»
+   ========================================================= */
+
+/* Появляется, когда первый экран уже прокручен, и не мешает контенту:
+   висит в правом нижнем углу поверх страницы. */
+.to-top {
+  position: fixed;
+  right: clamp(16px, 2.5vw, 34px);
+  bottom: clamp(16px, 2.5vw, 34px);
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: var(--shadow-card-hover);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 0.25s ease, transform 0.25s ease,
+              visibility 0.25s ease, background-color 0.2s ease;
+}
+
+.to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.to-top:hover {
+  background: var(--color-accent);
+}
+
+@media (max-width: 620px) {
+  .to-top {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+/* Шапка липкая и стала выше на полосу меню — якоря должны
+   останавливаться под ней, а не заезжать под шапку. */
+.section,
+.hero {
+  scroll-margin-top: 136px;
+}
+
+@media (max-width: 1000px) {
+  .section,
+  .hero {
+    scroll-margin-top: 88px;
+  }
 }

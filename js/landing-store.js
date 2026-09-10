@@ -65,6 +65,7 @@ const LandingStore = (function () {
       telegram: "https://t.me/zoovetmir",
       max: "https://max.ru/join/iCLqieIfmNNSp-RzGTlwsww1gAphmKCFU4K6v3BGqnI",
       lkText: "Личный кабинет партнёра",
+      lkHref: "https://ozvm.ru/lk",
     },
 
     slides: [

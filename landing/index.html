@@ -26,15 +26,6 @@
         </span>
       </a>
 
-      <nav class="header__nav" data-nav>
-        <a href="#promotions">Акции</a>
-        <a href="#categories">Каталог</a>
-        <a href="#advantages">О компании</a>
-        <a href="#steps">Доставка</a>
-        <a href="#reviews">Отзывы</a>
-        <a href="#contacts">Контакты</a>
-      </nav>
-
       <div class="header__actions">
         <div class="header__socials">
           <a class="header__social" href="https://t.me/zoovetmir" target="_blank" rel="noopener" aria-label="Telegram">
@@ -54,21 +45,33 @@
           <b>+7 (904) 829-92-02</b>
         </a>
 
-        <!-- Кабинет партнёра: пока заглушка, авторизация не подключена.
-             Когда появится вход — меняется на <a href>, стили те же. -->
-        <button class="header__lk" type="button" title="Раздел в разработке"
-                aria-label="Личный кабинет партнёра">
+        <a class="header__lk" href="https://ozvm.ru/lk" target="_blank" rel="noopener"
+           aria-label="Личный кабинет партнёра">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.7"/>
             <path d="M5 20c.9-3.6 3.7-5.6 7-5.6s6.1 2 7 5.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
           </svg>
           <span>Личный кабинет партнёра</span>
-        </button>
+        </a>
 
         <button class="header__burger" type="button" data-burger aria-label="Меню" aria-expanded="false">
           <span></span>
         </button>
       </div>
+    </div>
+
+    <!-- Меню отдельной полосой под шапкой: в самой шапке освободилось место,
+         и в меню помещается седьмой пункт. -->
+    <div class="header__navbar">
+      <nav class="container header__nav" data-nav>
+        <a href="#promotions">Акции</a>
+        <a href="#categories">Каталог</a>
+        <a href="#wholesale">Оптовые продажи</a>
+        <a href="#advantages">О компании</a>
+        <a href="#steps">Доставка</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
     </div>
   </header>
 
@@ -674,6 +677,13 @@
   <!-- Контент из админки (/admin.html, раздел «Розница»).
        Пока в админке ничего не сохраняли — скрипт ничего не делает
        и страница остаётся той статикой, что выше. -->
+  <button class="to-top" type="button" data-to-top aria-label="Наверх">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 19V6M6 12l6-6 6 6" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </button>
+
   <script src="/js/landing-store.js"></script>
   <script src="/landing/js/landing-content.js"></script>
   <script src="/landing/js/landing.js"></script>

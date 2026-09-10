@@ -138,3 +138,24 @@
 
   items.forEach((el) => observer.observe(el));
 })();
+
+/* ---------- Кнопка «наверх» ---------- */
+
+(function initToTop() {
+  const btn = document.querySelector("[data-to-top]");
+  if (!btn) return;
+
+  const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Показываем, когда позади остался примерно первый экран
+  const toggle = () => {
+    btn.classList.toggle("is-visible", window.scrollY > window.innerHeight * 0.6);
+  };
+
+  window.addEventListener("scroll", toggle, { passive: true });
+  toggle();
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: smooth ? "smooth" : "auto" });
+  });
+})();
