@@ -226,3 +226,55 @@
 
   values.forEach((el) => observer.observe(el));
 })();
+
+/* ---------- Подсветка раздела, который сейчас на экране ---------- */
+
+(function initNavSpy() {
+  const header = document.querySelector(".header");
+  const links = Array.from(document.querySelectorAll("[data-nav] a[href^='#']"));
+  if (!header || !links.length) return;
+
+  const pairs = links
+    .map((link) => ({ link, section: document.querySelector(link.getAttribute("href")) }))
+    .filter((pair) => pair.section);
+  if (!pairs.length) return;
+
+  let current = null;
+  let ticking = false;
+
+  function update() {
+    ticking = false;
+
+    // Текущий — тот раздел, который пересекает линию сразу под шапкой
+    const line = header.getBoundingClientRect().height + 8;
+    let active = null;
+
+    pairs.forEach(({ link, section }) => {
+      const box = section.getBoundingClientRect();
+      if (box.top <= line && box.bottom > line) active = link;
+    });
+
+    // В самом низу страницы последний раздел до линии уже не дотягивается
+    const atBottom =
+      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    if (!active && atBottom) active = pairs[pairs.length - 1].link;
+
+    if (active === current) return;
+    if (current) current.classList.remove("is-active");
+    if (active) active.classList.add("is-active");
+    current = active;
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    },
+    { passive: true }
+  );
+
+  window.addEventListener("resize", update);
+  update();
+})();
