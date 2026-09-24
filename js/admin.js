@@ -36,7 +36,7 @@ const views = {
 
 // Куда ведёт «Смотреть на сайте →» в каждом разделе
 const viewLinks = {
-  promos: "index.html",
+  promos: "/stock",
   landing: "landing/",
 };
 

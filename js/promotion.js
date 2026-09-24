@@ -6,8 +6,12 @@ function formatDate(dateStr) {
 }
 
 function getIdFromUrl() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("id");
+  /* Штатный адрес — /stock/12. Старый вид с ?id= тоже понимаем:
+     по нему могли остаться ссылки и закладки. */
+  const fromPath = window.location.pathname.match(/^\/stock\/([^/]+)/);
+  if (fromPath) return decodeURIComponent(fromPath[1]);
+
+  return new URLSearchParams(window.location.search).get("id");
 }
 
 function init() {

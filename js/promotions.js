@@ -8,7 +8,7 @@ function formatDate(dateStr) {
 function renderPromoTile(promo) {
   const el = document.createElement("a");
   el.className = "promo-tile";
-  el.href = "promotion.html?id=" + encodeURIComponent(promo.id);
+  el.href = "/stock/" + encodeURIComponent(promo.id);
 
   el.innerHTML = `
     <img class="promo-tile__img" src="${promo.image || ''}" alt="${promo.title}" onerror="this.style.opacity=0" />
