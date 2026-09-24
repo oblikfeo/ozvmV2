@@ -1,27 +1,21 @@
 /*
-  Хранилище контента лендинга.
+  Контент лендинга.
 
-  Устроено так же, как PromoStore: сейчас данные лежат в localStorage браузера,
-  при интеграции в основной проект тело функций меняется на вызовы API,
-  а сигнатуры остаются — ни админка, ни страница не переписываются.
-
-  Важно: админка (/admin.html) и лендинг (/landing/) отдаются с одного домена,
-  поэтому localStorage у них общий и правки видны на странице сразу.
+  Хранится в базе основного проекта и ходит через API
+  (api.ozvm.ru, /api/v1/retail/landing). Раньше лежал в localStorage —
+  от него отказались: правки видел только тот браузер, где их сделали.
 
   Пока администратор ничего не сохранял, getSaved() возвращает null,
-  и лендинг показывает свою обычную статическую вёрстку. Первое сохранение
-  включает отрисовку из хранилища.
+  и лендинг показывает свою обычную статическую вёрстку.
+
+  Все методы работы с данными асинхронные и возвращают промис.
 */
 
 const LandingStore = (function () {
   /* Внешние адреса — из общего конфига, чтобы они правились в одном месте. */
   const SITE = (window.OZVM && window.OZVM.config) || {};
 
-  const STORAGE_KEY = "landing_prototype_content";
-  const VERSION_KEY = "landing_prototype_version";
-  /* Поднять число, если структура seed изменилась и сохранённые данные
-     старого формата нужно выбросить. */
-  const VERSION = "2";
+  const api = window.OZVM.api;
 
   const IMG = "/landing/img/";
 
@@ -311,40 +305,31 @@ const LandingStore = (function () {
   }
 
   /** Сохранённый контент или null, если администратор ещё ничего не менял. */
-  function getSaved() {
+  async function getSaved() {
     try {
-      if (localStorage.getItem(VERSION_KEY) !== VERSION) return null;
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return null;
-      const parsed = JSON.parse(raw);
-      return parsed && typeof parsed === "object" ? parsed : null;
+      const data = await api.get("/retail/landing");
+      const content = data && data.content;
+      return content && typeof content === "object" ? content : null;
     } catch (e) {
+      // Сеть или API недоступны — страница остаётся на статической вёрстке
       return null;
     }
   }
 
   /** Контент для редактирования: сохранённый, иначе исходный. */
-  function get() {
-    return getSaved() || clone(seed);
+  async function get() {
+    return (await getSaved()) || clone(seed);
   }
 
-  function save(data) {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    } catch (e) {
-      // Загруженные картинки хранятся как data URL, а у localStorage лимит ~5 МБ.
-      throw new Error(
-        "Не хватило места в хранилище браузера. Возьмите картинку из готовой галереи или загрузите изображение меньшего размера."
-      );
-    }
-    localStorage.setItem(VERSION_KEY, VERSION);
+  async function save(data) {
+    await api.put("/retail/admin/landing", { content: data });
   }
 
   /** Вернуть страницу к исходному виду: правки стираются полностью. */
-  function resetToSeed() {
-    localStorage.removeItem(STORAGE_KEY);
-    localStorage.removeItem(VERSION_KEY);
-    return clone(seed);
+  async function resetToSeed() {
+    const fresh = clone(seed);
+    await save(fresh);
+    return fresh;
   }
 
   function getSeed() {

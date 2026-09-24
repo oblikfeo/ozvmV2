@@ -1,40 +1,45 @@
 /*
-  Вход в админку — демо-версия.
+  Вход в админку.
 
-  ВАЖНО: это НЕ настоящая защита. Приложение полностью статическое (Vercel),
-  проверка логина происходит в браузере, и любой может прочитать эти строки
-  в исходном коде страницы. Такой вход годится только для того, чтобы
-  показать клиенту сценарий «админ заходит под своим логином».
-
-  При интеграции в основной проект вход должен идти через Laravel
-  (отдельная учётка администратора + токен), а не отсюда.
+  Логин проверяет сервер: POST /api/v1/retail/admin/login возвращает токен,
+  он кладётся в localStorage и уходит в заголовке Authorization. Пароля
+  в этом файле больше нет — раньше он лежал здесь открытым текстом,
+  и любой мог прочитать его в исходниках страницы.
 */
 
 const AdminAuth = (function () {
-  const SESSION_KEY = "promo_admin_session";
+  const api = window.OZVM.api;
 
-  const CREDENTIALS = {
-    login: "admin",
-    password: "zoovetmir2026",
-  };
+  /** Токен мог протухнуть или быть отозван — спрашиваем сервер. */
+  async function isAuthenticated() {
+    if (!api.getToken()) return false;
 
-  function isAuthenticated() {
-    return sessionStorage.getItem(SESSION_KEY) === "1";
-  }
-
-  function signIn(login, password) {
-    const ok =
-      String(login).trim().toLowerCase() === CREDENTIALS.login &&
-      String(password) === CREDENTIALS.password;
-
-    if (ok) {
-      sessionStorage.setItem(SESSION_KEY, "1");
+    try {
+      await api.get("/retail/admin/me");
+      return true;
+    } catch (e) {
+      api.setToken(null);
+      return false;
     }
-    return ok;
   }
 
-  function signOut() {
-    sessionStorage.removeItem(SESSION_KEY);
+  async function signIn(login, password) {
+    try {
+      const data = await api.post("/retail/admin/login", { login, password });
+      api.setToken(data.token);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async function signOut() {
+    try {
+      await api.post("/retail/admin/logout");
+    } catch (e) {
+      // Сервер мог и не ответить — токен всё равно выбрасываем
+    }
+    api.setToken(null);
   }
 
   return { isAuthenticated, signIn, signOut };

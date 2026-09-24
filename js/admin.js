@@ -64,12 +64,17 @@ document.querySelectorAll(".admin-switch__btn").forEach((btn) => {
   btn.addEventListener("click", () => showView(btn.dataset.view));
 });
 
-loginForm.addEventListener("submit", (e) => {
+loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const user = document.getElementById("login-user").value;
   const pass = document.getElementById("login-pass").value;
+  const submit = loginForm.querySelector('[type="submit"]');
 
-  if (AdminAuth.signIn(user, pass)) {
+  submit.disabled = true;
+  const ok = await AdminAuth.signIn(user, pass);
+  submit.disabled = false;
+
+  if (ok) {
     loginError.hidden = true;
     loginForm.reset();
     showApp();
@@ -78,8 +83,8 @@ loginForm.addEventListener("submit", (e) => {
   }
 });
 
-document.getElementById("btn-logout").addEventListener("click", () => {
-  AdminAuth.signOut();
+document.getElementById("btn-logout").addEventListener("click", async () => {
+  await AdminAuth.signOut();
   showLogin();
 });
 
@@ -268,8 +273,17 @@ function fillForm(promo) {
 
 /* ---------- Таблица ---------- */
 
-function renderTable() {
-  const list = PromoStore.getAll();
+async function renderTable() {
+  let list = [];
+  try {
+    list = await PromoStore.getAll();
+  } catch (e) {
+    tableBody.innerHTML =
+      '<tr><td colspan="4" style="text-align:center; color: var(--color-accent);">Не удалось загрузить акции: ' +
+      e.message + '</td></tr>';
+    return;
+  }
+
   tableBody.innerHTML = "";
 
   if (list.length === 0) {
@@ -304,20 +318,29 @@ function renderTable() {
   });
 }
 
-tableBody.addEventListener("click", (e) => {
+tableBody.addEventListener("click", async (e) => {
   const btn = e.target.closest("button[data-action]");
   if (!btn) return;
   const id = btn.dataset.id;
 
   if (btn.dataset.action === "edit") {
-    const promo = PromoStore.getById(id);
-    if (promo) fillForm(promo);
+    try {
+      const promo = await PromoStore.getById(id);
+      if (promo) fillForm(promo);
+    } catch (err) {
+      alert("Не удалось открыть акцию: " + err.message);
+    }
   }
 
   if (btn.dataset.action === "delete") {
     if (confirm("Удалить эту акцию?")) {
-      PromoStore.remove(id);
-      renderTable();
+      try {
+        await PromoStore.remove(id);
+      } catch (err) {
+        alert("Не удалось удалить: " + err.message);
+        return;
+      }
+      await renderTable();
       resetForm();
     }
   }
@@ -325,7 +348,7 @@ tableBody.addEventListener("click", (e) => {
 
 /* ---------- Сохранение ---------- */
 
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const dateStart = inputToIso(fields.start.value);
@@ -358,14 +381,18 @@ form.addEventListener("submit", (e) => {
     active: fields.active.checked,
   };
 
+  const submit = form.querySelector('[type="submit"]');
+  submit.disabled = true;
   try {
-    PromoStore.upsert(promo);
+    await PromoStore.upsert(promo);
   } catch (err) {
-    alert(err.message);
+    alert("Не удалось сохранить: " + err.message);
     return;
+  } finally {
+    submit.disabled = false;
   }
 
-  renderTable();
+  await renderTable();
   resetForm();
 });
 
@@ -373,8 +400,10 @@ document.getElementById("btn-cancel").addEventListener("click", resetForm);
 
 /* ---------- Старт ---------- */
 
-if (AdminAuth.isAuthenticated()) {
-  showApp();
-} else {
-  showLogin();
-}
+(async function start() {
+  if (await AdminAuth.isAuthenticated()) {
+    showApp();
+  } else {
+    showLogin();
+  }
+})();

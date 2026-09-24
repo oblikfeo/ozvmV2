@@ -788,11 +788,12 @@ const LandingAdmin = (function () {
 
   /* ---------------- Сохранение ---------------- */
 
-  function save() {
+  async function save() {
+    setStatus("Сохраняю…", null);
     try {
-      LandingStore.save(content);
+      await LandingStore.save(content);
     } catch (e) {
-      alert(e.message);
+      setStatus("Не удалось сохранить: " + e.message, "error");
       return;
     }
     dirty = false;
@@ -800,9 +801,14 @@ const LandingAdmin = (function () {
     setStatus("Сохранено в " + time + ". Обновите страницу, чтобы увидеть правки.", "ok");
   }
 
-  function reset() {
+  async function reset() {
     if (!confirm("Вернуть странице исходный вид? Все правки будут стёрты.")) return;
-    content = LandingStore.resetToSeed();
+    try {
+      content = await LandingStore.resetToSeed();
+    } catch (e) {
+      setStatus("Не удалось вернуть исходный вид: " + e.message, "error");
+      return;
+    }
     dirty = false;
     renderPanels();
     showSection(activeSection || SECTIONS[0].id);
@@ -811,7 +817,7 @@ const LandingAdmin = (function () {
 
   /* ---------------- Запуск ---------------- */
 
-  function open() {
+  async function open() {
     if (!tabsBox) {
       tabsBox = document.getElementById("lp-tabs");
       panelsBox = document.getElementById("lp-panels");
@@ -821,12 +827,19 @@ const LandingAdmin = (function () {
       renderTabs();
     }
 
-    // Заново поднимаем данные из хранилища: вдруг их правили в другой вкладке
+    // Заново поднимаем данные с сервера: их могли править в другом месте
     if (!dirty) {
-      content = LandingStore.get();
+      setStatus("Загружаю…", null);
+      let saved = null;
+      try {
+        saved = await LandingStore.getSaved();
+      } catch (e) {
+        setStatus("Не удалось загрузить контент: " + e.message, "error");
+      }
+      content = saved || LandingStore.getSeed();
       renderPanels();
       setStatus(
-        LandingStore.getSaved()
+        saved
           ? "Страница показывает сохранённую версию"
           : "Страница показывает исходную версию",
         null

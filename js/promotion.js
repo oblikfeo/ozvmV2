@@ -14,11 +14,20 @@ function getIdFromUrl() {
   return new URLSearchParams(window.location.search).get("id");
 }
 
-function init() {
+async function init() {
   const id = getIdFromUrl();
-  const promo = id ? PromoStore.getById(id) : null;
   const content = document.getElementById("promo-content");
   const notFound = document.getElementById("promo-not-found");
+
+  let promo = null;
+  if (id) {
+    try {
+      promo = await PromoStore.getById(id);
+    } catch (e) {
+      // Акции нет или API недоступен — показываем «не найдено»
+      promo = null;
+    }
+  }
 
   if (!promo) {
     content.style.display = "none";

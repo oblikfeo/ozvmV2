@@ -27,10 +27,17 @@ function renderPromoTile(promo) {
   return el;
 }
 
-function init() {
+async function init() {
   const grid = document.getElementById("promo-grid");
   const empty = document.getElementById("promo-empty");
-  const active = PromoStore.getActive();
+
+  let active = [];
+  try {
+    active = await PromoStore.getActive();
+  } catch (e) {
+    // API недоступен — показываем пустую витрину, а не сломанную страницу
+    active = [];
+  }
 
   if (active.length === 0) {
     grid.style.display = "none";

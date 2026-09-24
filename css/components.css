@@ -939,7 +939,8 @@
   color: var(--color-primary);
 }
 
-.editor-status--warn {
+.editor-status--warn,
+.editor-status--error {
   color: var(--color-accent);
 }
 

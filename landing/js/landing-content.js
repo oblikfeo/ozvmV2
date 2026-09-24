@@ -9,10 +9,10 @@
   по тем баннерам, которые уже стоят в разметке.
 */
 
-(function applyLandingContent() {
+(async function applyLandingContent() {
   if (typeof LandingStore === "undefined") return;
 
-  const saved = LandingStore.getSaved();
+  const saved = await LandingStore.getSaved();
   if (!saved) return;
 
   /* Накладываем сохранённое на исходные данные: если в старом сохранении
