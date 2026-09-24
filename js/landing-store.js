@@ -14,6 +14,9 @@
 */
 
 const LandingStore = (function () {
+  /* Внешние адреса — из общего конфига, чтобы они правились в одном месте. */
+  const SITE = (window.OZVM && window.OZVM.config) || {};
+
   const STORAGE_KEY = "landing_prototype_content";
   const VERSION_KEY = "landing_prototype_version";
   /* Поднять число, если структура seed изменилась и сохранённые данные
@@ -65,7 +68,7 @@ const LandingStore = (function () {
       telegram: "https://t.me/zoovetmir",
       max: "https://max.ru/join/iCLqieIfmNNSp-RzGTlwsww1gAphmKCFU4K6v3BGqnI",
       lkText: "Личный кабинет партнёра",
-      lkHref: "https://ozvm.ru/lk",
+      lkHref: SITE.lkUrl || "https://ozvm.ru/lk",
     },
 
     slides: [
@@ -188,7 +191,7 @@ const LandingStore = (function () {
       geo:
         "Поставляем ветеринарную фармацевтику напрямую от производителей по России и в страны СНГ.",
       btnText: "Получить доступ к оптовым ценам",
-      btnHref: "https://ozvm.ru/",
+      btnHref: SITE.registrationUrl || "https://ozvm.ru/",
       note:
         "Оставьте контакты — менеджер свяжется с вами, зарегистрирует компанию и откроет доступ к оптовому каталогу.",
     },
